@@ -1,0 +1,17 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: "Press Start 2P";
+  src: url("https://fonts.gstatic.com/s/pressstart2p/v15/e3t4euO8T-267oIAQAu6jDQyK3nVivM.woff2")
+    format("woff2");
+}
+
+body {
+  font-family: "JetBrains Mono", monospace;
+  background-color: #1a1435;
+  color: #f4f4f0;
+}
+
+.font-pixel {
+  font-family: "Press Start 2P", cursive;
+}

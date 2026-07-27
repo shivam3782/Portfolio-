@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const Project = require("../models/Project");
+const checkAdmin = require("../middleware/checkAdmin");
 
 // GET all projects
 router.get("/", async (req, res) => {
@@ -13,7 +14,7 @@ router.get("/", async (req, res) => {
 });
 
 // POST a new project
-router.post("/", async (req, res) => {
+router.post("/", checkAdmin, async (req, res) => {
   try {
     const newProject = new Project(req.body);
     const saved = await newProject.save();
@@ -22,6 +23,7 @@ router.post("/", async (req, res) => {
     res.status(400).json({ error: err.message });
   }
 });
+
 // GET a single project by ID
 router.get("/:id", async (req, res) => {
   try {
@@ -34,7 +36,7 @@ router.get("/:id", async (req, res) => {
 });
 
 // UPDATE a project
-router.put("/:id", async (req, res) => {
+router.put("/:id", checkAdmin, async (req, res) => {
   try {
     const updated = await Project.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
@@ -47,7 +49,7 @@ router.put("/:id", async (req, res) => {
 });
 
 // DELETE a project
-router.delete("/:id", async (req, res) => {
+router.delete("/:id", checkAdmin, async (req, res) => {
   try {
     const deleted = await Project.findByIdAndDelete(req.params.id);
     if (!deleted) return res.status(404).json({ error: "Project not found" });
