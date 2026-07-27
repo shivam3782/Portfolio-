@@ -10,7 +10,14 @@ const projectRoutes = require("./routes/projectRoutes");
 const app = express();
 const PORT = 3000;
 
-app.use(cors());
+app.use(
+  cors({
+    origin: [
+      "http://localhost:5173",
+      "https://portfolio-seven-pearl-51.vercel.app",
+    ],
+  }),
+);
 app.use(express.json());
 
 mongoose
