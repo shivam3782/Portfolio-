@@ -6,7 +6,7 @@ function QuestLog() {
   const [error, setError] = useState(null);
 
   useEffect(() => {
-    fetch("http://localhost:3000/api/projects")
+    fetch(`${import.meta.env.VITE_API_URL}/api/projects`)
       .then((res) => res.json())
       .then((data) => {
         setProjects(data);

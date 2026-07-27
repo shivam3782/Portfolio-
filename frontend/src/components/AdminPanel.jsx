@@ -11,9 +11,8 @@ function AdminPanel() {
     tech: "",
     githubUrl: "",
   });
-
   const fetchProjects = () => {
-    fetch("http://localhost:3000/api/projects")
+    fetch(`${import.meta.env.VITE_API_URL}/api/projects`)
       .then((res) => res.json())
       .then(setProjects);
   };
@@ -45,8 +44,8 @@ function AdminPanel() {
     };
 
     const url = editingId
-      ? `http://localhost:3000/api/projects/${editingId}`
-      : "http://localhost:3000/api/projects";
+      ? `${import.meta.env.VITE_API_URL}/api/projects/${editingId}`
+      : `${import.meta.env.VITE_API_URL}/api/projects`;
     const method = editingId ? "PUT" : "POST";
 
     const res = await fetch(url, {
@@ -79,10 +78,13 @@ function AdminPanel() {
   };
 
   const handleDelete = async (id) => {
-    const res = await fetch(`http://localhost:3000/api/projects/${id}`, {
-      method: "DELETE",
-      headers: { "x-admin-key": adminKey },
-    });
+    const res = await fetch(
+      `${import.meta.env.VITE_API_URL}/api/projects/${id}`,
+      {
+        method: "DELETE",
+        headers: { "x-admin-key": adminKey },
+      },
+    );
     if (res.status === 401) {
       alert("Wrong admin key");
       setAuthenticated(false);
