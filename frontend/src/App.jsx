@@ -1,12 +1,22 @@
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
+import { useEffect } from "react";
 import DialogueBox from "./components/DialogueBox";
 import Navbar from "./components/Navbar";
 import QuestLog from "./components/QuestLog";
 import StatsPanel from "./components/StatsPanel";
-import AdminPanel from "./components/AdminPanel";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Achievements from "./components/Achievements";
+import AdminPanel from "./components/AdminPanel";
 
 function Home() {
+  const location = useLocation();
+
+  useEffect(() => {
+    if (location.hash) {
+      const el = document.querySelector(location.hash);
+      if (el) el.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [location]);
+
   return (
     <div>
       <section id="home">
