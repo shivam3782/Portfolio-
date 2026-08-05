@@ -31,7 +31,7 @@ function DialogueBox() {
   };
 
   return (
-    <div className="min-h-screen bg-[#1a1435] flex flex-col items-center justify-center px-4">
+    <div className="min-h-screen  flex flex-col items-center justify-center px-4">
       <div
         onClick={handleContinue}
         className="cursor-pointer max-w-2xl w-full bg-[#f4e8c1] border-4 border-[#e8935a] rounded-lg p-6 relative shadow-[8px_8px_0px_0px_rgba(0,0,0,0.4)]"

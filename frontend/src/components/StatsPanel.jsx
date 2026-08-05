@@ -12,7 +12,7 @@ const skillCategories = [
 
 function StatsPanel() {
   return (
-    <div className="min-h-screen bg-[#1a1435] p-8">
+    <div className="min-h-screen p-8">
       <h2 className="font-pixel text-[#e8935a] text-xl mb-8">
         STATS &amp; EQUIPMENT
       </h2>

@@ -122,7 +122,7 @@ function AdminPanel() {
   }
 
   return (
-    <div className="min-h-screen bg-[#1a1435] p-8">
+    <div className="min-h-screen  p-8">
       <h2 className="font-pixel text-[#e8935a] text-xl mb-8">ADMIN PANEL</h2>
 
       <form
@@ -136,27 +136,27 @@ function AdminPanel() {
           value={form.name}
           onChange={(e) => setForm({ ...form, name: e.target.value })}
           placeholder="Name"
-          className="w-full bg-[#1a1435] border border-[#5fb8a8] rounded p-2 text-[#f4f4f0] mb-3"
+          className="w-full  border border-[#5fb8a8] rounded p-2 text-[#f4f4f0] mb-3"
           required
         />
         <textarea
           value={form.description}
           onChange={(e) => setForm({ ...form, description: e.target.value })}
           placeholder="Description"
-          className="w-full bg-[#1a1435] border border-[#5fb8a8] rounded p-2 text-[#f4f4f0] mb-3"
+          className="w-full border border-[#5fb8a8] rounded p-2 text-[#f4f4f0] mb-3"
           required
         />
         <input
           value={form.tech}
           onChange={(e) => setForm({ ...form, tech: e.target.value })}
           placeholder="Tech (comma-separated: React, Node.js)"
-          className="w-full bg-[#1a1435] border border-[#5fb8a8] rounded p-2 text-[#f4f4f0] mb-3"
+          className="w-full border border-[#5fb8a8] rounded p-2 text-[#f4f4f0] mb-3"
         />
         <input
           value={form.githubUrl}
           onChange={(e) => setForm({ ...form, githubUrl: e.target.value })}
           placeholder="GitHub URL"
-          className="w-full bg-[#1a1435] border border-[#5fb8a8] rounded p-2 text-[#f4f4f0] mb-4"
+          className="w-full  border border-[#5fb8a8] rounded p-2 text-[#f4f4f0] mb-4"
         />
         <div className="flex gap-3">
           <button
