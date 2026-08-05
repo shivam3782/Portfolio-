@@ -6,6 +6,7 @@ import QuestLog from "./components/QuestLog";
 import StatsPanel from "./components/StatsPanel";
 import Achievements from "./components/Achievements";
 import AdminPanel from "./components/AdminPanel";
+import Starfield from "./components/Starfield";
 
 function Home() {
   const location = useLocation();
@@ -38,6 +39,7 @@ function Home() {
 function App() {
   return (
     <BrowserRouter>
+      <Starfield />
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
