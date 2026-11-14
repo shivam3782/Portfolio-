@@ -1,2 +1,14 @@
 node_modules
 .env
+.env.*
+!.env.example
+!frontend/.env.development
+!frontend/.env.production
+# Codex review and development documentation
+/DEPLOYMENT_GUIDE.md
+/PROJECT_ASSETS.md
+/REDESIGN_REVIEW.md
+/REVIEW_GUIDE.md
+/REVIEW_REPORT.md
+/SOURCE_CODE.md
+/VISUAL_QA.md

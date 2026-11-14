@@ -1,208 +1,116 @@
-import { useState, useEffect } from "react";
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { Link, NavLink, Route, Routes, useLocation, useNavigate } from 'react-router-dom';
+import { projectRequest } from '../lib/api';
+import Icon from './Icon';
+import ProjectLibrary from './admin/ProjectLibrary';
+import ProjectEditor from './admin/ProjectEditor';
+import ConfirmDialog from './admin/ConfirmDialog';
+import './admin/admin.css';
 
-function AdminPanel() {
-  const [adminKey, setAdminKey] = useState("");
-  const [authenticated, setAuthenticated] = useState(false);
-  const [projects, setProjects] = useState([]);
-  const [editingId, setEditingId] = useState(null);
-  const [form, setForm] = useState({
-    name: "",
-    description: "",
-    tech: "",
-    githubUrl: "",
-  });
-  const fetchProjects = () => {
-    fetch(`${import.meta.env.VITE_API_URL}/api/projects`)
-      .then((res) => res.json())
-      .then(setProjects);
+function AccessForm({ onAccess, compact = false }) {
+  const [value, setValue] = useState('');
+  const [error, setError] = useState('');
+  const [busy, setBusy] = useState(false);
+  const submit = async event => {
+    event.preventDefault();
+    if (busy || !value.trim()) return;
+    setBusy(true); setError('');
+    try {
+      const session = await projectRequest('/session', { headers: { 'x-admin-key': value }, signal: AbortSignal.timeout(15000) });
+      if (!session.authenticated) throw new Error();
+      onAccess(value);
+      setValue('');
+    } catch (failure) { setError(failure.status === 401 ? 'That key wasn’t accepted. Please try again.' : 'The console couldn’t be reached. Check the backend connection and retry.'); }
+    finally { setBusy(false); }
   };
-
-  useEffect(() => {
-    if (authenticated) fetchProjects();
-  }, [authenticated]);
-
-  const handleLogin = (e) => {
-    e.preventDefault();
-    setAuthenticated(true);
-  };
-
-  const resetForm = () => {
-    setForm({ name: "", description: "", tech: "", githubUrl: "" });
-    setEditingId(null);
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const payload = {
-      name: form.name,
-      description: form.description,
-      tech: form.tech
-        .split(",")
-        .map((t) => t.trim())
-        .filter(Boolean),
-      githubUrl: form.githubUrl,
-    };
-
-    const url = editingId
-      ? `${import.meta.env.VITE_API_URL}/api/projects/${editingId}`
-      : `${import.meta.env.VITE_API_URL}/api/projects`;
-    const method = editingId ? "PUT" : "POST";
-
-    const res = await fetch(url, {
-      method,
-      headers: {
-        "Content-Type": "application/json",
-        "x-admin-key": adminKey,
-      },
-      body: JSON.stringify(payload),
-    });
-
-    if (res.status === 401) {
-      alert("Wrong admin key");
-      setAuthenticated(false);
-      return;
-    }
-
-    resetForm();
-    fetchProjects();
-  };
-
-  const handleEdit = (project) => {
-    setForm({
-      name: project.name,
-      description: project.description,
-      tech: project.tech.join(", "),
-      githubUrl: project.githubUrl || "",
-    });
-    setEditingId(project._id);
-  };
-
-  const handleDelete = async (id) => {
-    const res = await fetch(
-      `${import.meta.env.VITE_API_URL}/api/projects/${id}`,
-      {
-        method: "DELETE",
-        headers: { "x-admin-key": adminKey },
-      },
-    );
-    if (res.status === 401) {
-      alert("Wrong admin key");
-      setAuthenticated(false);
-      return;
-    }
-    fetchProjects();
-  };
-
-  if (!authenticated) {
-    return (
-      <div className="min-h-screen bg-[#1a1435] flex items-center justify-center">
-        <form
-          onSubmit={handleLogin}
-          className="bg-[#2d2547] border-2 border-[#e8935a] rounded-lg p-8 w-full max-w-sm"
-        >
-          <h2 className="font-pixel text-[#e8935a] text-sm mb-6">
-            ENTER ADMIN KEY
-          </h2>
-          <input
-            type="password"
-            value={adminKey}
-            onChange={(e) => setAdminKey(e.target.value)}
-            className="w-full bg-[#1a1435] border-2 border-[#5fb8a8] rounded p-2 text-[#f4f4f0] mb-4"
-            placeholder="Admin key"
-          />
-          <button
-            type="submit"
-            className="w-full bg-[#e8935a] text-[#1a1435] font-pixel text-xs py-3 rounded"
-          >
-            ENTER
-          </button>
-        </form>
-      </div>
-    );
-  }
-
-  return (
-    <div className="min-h-screen  p-8">
-      <h2 className="font-pixel text-[#e8935a] text-xl mb-8">ADMIN PANEL</h2>
-
-      <form
-        onSubmit={handleSubmit}
-        className="bg-[#2d2547] border-2 border-[#e8935a] rounded-lg p-6 mb-8 max-w-xl"
-      >
-        <h3 className="font-pixel text-xs text-[#5fb8a8] mb-4">
-          {editingId ? "EDIT PROJECT" : "NEW PROJECT"}
-        </h3>
-        <input
-          value={form.name}
-          onChange={(e) => setForm({ ...form, name: e.target.value })}
-          placeholder="Name"
-          className="w-full  border border-[#5fb8a8] rounded p-2 text-[#f4f4f0] mb-3"
-          required
-        />
-        <textarea
-          value={form.description}
-          onChange={(e) => setForm({ ...form, description: e.target.value })}
-          placeholder="Description"
-          className="w-full border border-[#5fb8a8] rounded p-2 text-[#f4f4f0] mb-3"
-          required
-        />
-        <input
-          value={form.tech}
-          onChange={(e) => setForm({ ...form, tech: e.target.value })}
-          placeholder="Tech (comma-separated: React, Node.js)"
-          className="w-full border border-[#5fb8a8] rounded p-2 text-[#f4f4f0] mb-3"
-        />
-        <input
-          value={form.githubUrl}
-          onChange={(e) => setForm({ ...form, githubUrl: e.target.value })}
-          placeholder="GitHub URL"
-          className="w-full  border border-[#5fb8a8] rounded p-2 text-[#f4f4f0] mb-4"
-        />
-        <div className="flex gap-3">
-          <button
-            type="submit"
-            className="bg-[#e8935a] text-[#1a1435] font-pixel text-xs px-6 py-3 rounded"
-          >
-            {editingId ? "UPDATE" : "CREATE"}
-          </button>
-          {editingId && (
-            <button
-              type="button"
-              onClick={resetForm}
-              className="bg-[#5fb8a8] text-[#1a1435] font-pixel text-xs px-6 py-3 rounded"
-            >
-              CANCEL
-            </button>
-          )}
-        </div>
-      </form>
-
-      <div className="space-y-4">
-        {projects.map((p) => (
-          <div
-            key={p._id}
-            className="bg-[#2d2547] border-2 border-[#5fb8a8] rounded-lg p-4 flex justify-between items-center"
-          >
-            <span className="text-[#f4f4f0]">{p.name}</span>
-            <div className="flex gap-2">
-              <button
-                onClick={() => handleEdit(p)}
-                className="bg-[#e8935a] text-[#1a1435] px-4 py-2 rounded font-pixel text-xs"
-              >
-                EDIT
-              </button>
-              <button
-                onClick={() => handleDelete(p._id)}
-                className="bg-red-500 text-white px-4 py-2 rounded font-pixel text-xs"
-              >
-                DELETE
-              </button>
-            </div>
-          </div>
-        ))}
-      </div>
-    </div>
-  );
+  return <form className="console-access-form" onSubmit={submit}><span className="access-icon"><Icon name="lock" size={23} /></span><p className="section-label">PRIVATE WORKSPACE</p><h1>{compact ? 'Verify your access' : 'Welcome back, Shivam.'}</h1><p>{compact ? 'Your project changes are still here. Verify your key to continue.' : 'A little care behind every project. Sign in to manage your portfolio.'}</p><label htmlFor={compact ? 'verify-admin-key' : 'admin-key'}>Admin key</label><input id={compact ? 'verify-admin-key' : 'admin-key'} type="password" autoComplete="off" autoFocus required value={value} onChange={event => setValue(event.target.value)} disabled={busy} placeholder="Enter your private key" />{error && <p className="field-error" role="alert">{error}</p>}<button className="button primary" type="submit" disabled={busy}>{busy ? <><span className="admin-spinner" />Verifying…</> : <>Open workspace<Icon name="arrow" size={18} /></>}</button><p className="access-footnote"><Icon name="lock" size={13} />Server-verified. Your key stays in memory.</p></form>;
 }
 
-export default AdminPanel;
+function AccessDialog({ onAccess, onClose }) {
+  const ref = useRef(null);
+  useEffect(() => { const previous = document.activeElement, dialog = ref.current; dialog.showModal(); return () => { dialog.close(); if (previous?.isConnected) previous.focus(); }; }, []);
+  return <dialog ref={ref} className="admin-confirm reauth-dialog" aria-label="Verify admin access" onCancel={event => { event.preventDefault(); onClose(); }}><button className="reauth-close" aria-label="Close access verification" onClick={onClose}>×</button><AccessForm compact onAccess={onAccess} /></dialog>;
+}
+
+function LockConsole({ onLock }) {
+  const navigate = useNavigate();
+  useEffect(() => { onLock(); navigate('/admin', { replace: true }); }, [onLock, navigate]);
+  return null;
+}
+
+export default function AdminPanel({ theme, onTheme, onCommand }) {
+  const [entered, setEntered] = useState(false);
+  const [projects, setProjects] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState('');
+  const [message, setMessage] = useState('');
+  const [loadedAt, setLoadedAt] = useState(null);
+  const [needsAccess, setNeedsAccess] = useState(false);
+  const [verify, setVerify] = useState(false);
+  const [deleting, setDeleting] = useState(null);
+  const [deleteBusy, setDeleteBusy] = useState(false);
+  const [deleteError, setDeleteError] = useState('');
+  const key = useRef('');
+  const loadController = useRef(null);
+  const location = useLocation();
+  const api = useCallback((path = '', options = {}) => projectRequest(path, {
+    ...options, signal: options.signal || AbortSignal.timeout(30000),
+    headers: { 'Content-Type': 'application/json', 'x-admin-key': key.current, ...options.headers }
+  }), []);
+  const load = useCallback(async () => {
+    loadController.current?.abort();
+    const controller = new AbortController();
+    loadController.current = controller;
+    const timeout = setTimeout(() => controller.abort(), 45000);
+    setLoading(true); setError('');
+    try {
+      const data = await projectRequest('', { signal: controller.signal });
+      if (!Array.isArray(data)) throw new Error();
+      if (!controller.signal.aborted) { setProjects(data); setLoadedAt(new Date()); }
+    } catch {
+      if (loadController.current === controller) setError('The project library couldn’t be refreshed. Your existing view is kept. Try again in a moment.');
+    } finally {
+      clearTimeout(timeout);
+      if (loadController.current === controller) { setLoading(false); loadController.current = null; }
+    }
+  }, []);
+  useEffect(() => () => { loadController.current?.abort(); loadController.current = null; }, []);
+  useEffect(() => () => { key.current = ''; }, []);
+  const access = value => { key.current = value; if (!entered) load(); setEntered(true); setNeedsAccess(false); setVerify(false); };
+  const lock = useCallback(() => { loadController.current?.abort(); loadController.current = null; key.current = ''; setEntered(false); setProjects([]); setLoadedAt(null); setMessage(''); setError(''); setNeedsAccess(false); setVerify(false); }, []);
+  const unauthorized = () => { setNeedsAccess(true); setVerify(true); };
+  const saved = note => { setMessage(note); load(); };
+  const remove = async () => {
+    if (deleteBusy) return;
+    setDeleteBusy(true); setDeleteError('');
+    try {
+      await api('/' + encodeURIComponent(deleting._id), { method: 'DELETE' });
+      setProjects(current => current.filter(p => p._id !== deleting._id));
+      setMessage('Project deleted from your portfolio.'); setDeleting(null); load();
+    } catch (failure) {
+      setDeleteError(failure.status === 401 ? 'Access needs to be verified before this project can be deleted.' : 'The deletion could not be confirmed. Refresh the library before retrying.');
+      if (failure.status === 401) { setNeedsAccess(true); setDeleting(null); setVerify(true); }
+    } finally { setDeleteBusy(false); }
+  };
+  const editor = /\/projects\/(?:new|[^/]+\/edit)\/?$/.test(location.pathname);
+  const projectPage = location.pathname.startsWith('/admin/projects');
+  const title = editor ? location.pathname.endsWith('/new') ? 'A new piece of work' : 'Refine your project' : projectPage ? 'Your projects' : 'Workspace overview';
+  const description = editor ? 'Make the story as considered as the code.' : projectPage ? 'Find it, refine it, share it.' : 'Good work deserves a well-kept home.';
+  const tools = <div className="admin-header-tools"><button className="admin-icon-button" aria-label={'Switch to ' + (theme === 'dark' ? 'light' : 'dark') + ' theme'} onClick={onTheme}><Icon name={theme === 'dark' ? 'sun' : 'moon'} /></button><button className="admin-command-button" aria-label="Open command palette" onClick={onCommand}><kbd>Ctrl K</kbd></button></div>;
+
+  if (location.pathname === '/admin/lock') return <LockConsole onLock={lock} />;
+  if (!entered) return <main id="main-content" className="console-login"><div className="console-login-brand"><Link className="wordmark" to="/"><span className="wordmark-symbol">s/</span>Shivam<span className="logo-dot">.</span></Link><div><p className="section-label">THE WORK BEHIND THE WORK</p><h2>A considered space<br />for the things<br /><span>you build.</span></h2><p>Projects, stories and the details that make them yours.</p><div className="login-grid-art" aria-hidden="true"><Icon name="code" size={66} /><span>BUILD · REFINE · SHARE</span></div></div><Link className="admin-text-button" to="/">Back to portfolio<Icon name="arrow" size={17} /></Link></div><div className="console-login-content">{tools}<AccessForm onAccess={access} /><span className="login-copyright">Shivam Sharma / Portfolio console</span></div></main>;
+
+  return <main id="main-content" className="admin-workspace"><aside className="admin-sidebar"><Link to="/admin" className="wordmark"><span className="wordmark-symbol">s/</span>Shivam<span className="logo-dot">.</span></Link><div className="workspace-label"><span className="workspace-avatar">SS</span><div><strong>Portfolio console</strong><span>Personal workspace</span></div></div><p className="sidebar-caption">WORKSPACE</p><nav aria-label="Admin navigation"><NavLink end to="/admin" className="admin-nav-item"><Icon name="overview" size={19} />Overview</NavLink><NavLink to="/admin/projects" className="admin-nav-item"><Icon name="folder" size={19} />Projects<span>{projects.length}</span></NavLink><Link to="/" className="admin-nav-item"><Icon name="external" size={18} />View portfolio</Link></nav><div className="sidebar-bottom"><div className="sidebar-note"><span className={'connection-dot' + (loadedAt ? ' connected' : '')} /><span>{loading ? 'Syncing library…' : loadedAt ? 'Library synchronized' : 'Awaiting connection'}</span></div><Link className="admin-nav-item" to="/admin/lock"><Icon name="lock" size={18} />Lock console</Link><span className="sidebar-version">A little curiosity. Well organized.</span></div></aside>
+    <div className="admin-work-area"><div className="admin-topbar"><p>Workspace<span>/</span><b>{editor ? 'Project editor' : projectPage ? 'Projects' : 'Overview'}</b></p><div><Link to="/" className="admin-portfolio-link">View portfolio<Icon name="external" size={14} /></Link>{tools}</div></div>
+      <div className="admin-content"><header className="admin-page-heading"><div><p className="section-label">YOUR WORK, THOUGHTFULLY MANAGED</p><h1>{title}<span className="accent">.</span></h1><p>{description}</p></div>{!editor && <Link className="button primary" to="/admin/projects/new"><Icon name="plus" size={18} />New project</Link>}</header>
+        {message && <div className="admin-notice success" role="status"><Icon name="check" size={18} /><span>{message}</span><button aria-label="Dismiss notification" onClick={() => setMessage('')}>×</button></div>}
+        {error && <div className="admin-notice error" role="alert"><Icon name="alert" size={18} /><span>{error}</span><button onClick={load} disabled={loading}>Retry</button></div>}
+        {needsAccess && <div className="admin-notice error" role="alert"><Icon name="lock" size={18} /><span>Your changes are kept. Verify access before saving.</span><button onClick={() => setVerify(true)}>Verify access</button></div>}
+        {loading && !loadedAt ? <div className="library-loading" role="status"><span className="admin-spinner" />Opening your workspace…</div> : error && !loadedAt ? <div className="library-empty"><h2>Let’s reconnect the library</h2><p>Your project data is safe. Refresh when the service is available.</p><button className="button secondary" onClick={load}>Refresh library</button></div> : <Routes><Route index element={<ProjectLibrary projects={projects} loading={loading} loadedAt={loadedAt} onRefresh={load} onDelete={project => { setDeleting(project); setDeleteError(''); }} overview />} /><Route path="projects" element={<ProjectLibrary projects={projects} loading={loading} loadedAt={loadedAt} onRefresh={load} onDelete={project => { setDeleting(project); setDeleteError(''); }} />} /><Route path="projects/new" element={<ProjectEditor key={location.pathname} projects={projects} api={api} onSaved={saved} onUnauthorized={unauthorized} />} /><Route path="projects/:id/edit" element={<ProjectEditor key={location.pathname} projects={projects} api={api} onSaved={saved} onUnauthorized={unauthorized} />} /><Route path="lock" element={<LockConsole onLock={lock} />} /><Route path="*" element={<div className="library-empty"><h2>Workspace page not found</h2><Link to="/admin/projects" className="button secondary">Return to projects</Link></div>} /></Routes>}
+      </div><div className="admin-workspace-footer"><span>Made for the work that matters.</span><span>SHIVAM / CONSOLE</span></div>
+    </div>
+    {deleting && <ConfirmDialog title={'Delete ' + deleting.name + '?'} danger confirm="Delete project" busy={deleteBusy} error={deleteError} onConfirm={remove} onCancel={() => setDeleting(null)}><p>This removes the project from your portfolio. This action cannot be undone.</p></ConfirmDialog>}
+    {verify && <AccessDialog onAccess={access} onClose={() => setVerify(false)} />}
+  </main>;
+}

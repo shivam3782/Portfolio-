@@ -1,4 +1,15 @@
-# React + Vite
+# Shivam Sharma portfolio frontend
+
+React/Vite static SPA. The Express/MongoDB backend runs separately in `../backend`; it is not automatically hosted by the frontend.
+
+- Local: start the backend, then `npm run dev`. `/api` is proxied locally.
+- Production: `npm run build` uses same-origin `/api` by default and validates the emitted assets. The checked-in Vercel configuration forwards `/api` to the existing separate Render service before the SPA fallback.
+- Alternative hosting: set the public HTTPS backend origin in `VITE_API_URL`; see `.env.example`.
+- Do not add backend secrets to any `VITE_` value.
+
+See [deployment configuration](../DEPLOYMENT_GUIDE.md), [visual QA](../VISUAL_QA.md), [missing screenshots](../PROJECT_ASSETS.md) and [current verification](../REDESIGN_REVIEW.md).
+
+## Original Vite template notes
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
