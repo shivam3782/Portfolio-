@@ -9,7 +9,7 @@ import { createMemoryRouter, MemoryRouter, RouterProvider } from 'react-router-d
 import { createServer } from 'vite';
 
 // Test the real frontend helper and real Express routes without touching MongoDB.
-const vite = await createServer({ server: { middlewareMode: true }, appType: 'custom' });
+const vite = await createServer({ server: { middlewareMode: true, hmr: false }, appType: 'custom' });
 const { projectRequest, safeUrl } = await vite.ssrLoadModule('/src/lib/api.js');
 const originalFetch = globalThis.fetch;
 after(async () => { globalThis.fetch = originalFetch; await vite.close(); });

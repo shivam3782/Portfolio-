@@ -209,3 +209,53 @@ Changed paths (including checkpoint documents):
 - `CODEX_HANDOFF.md`
 
 Next: Complete SEO, optimize the entry bundle and measure the final candidate.
+
+## Stage 6 · SEO, performance and final validation · November 19, 2026
+
+Branch `portfolio-polish-2026`, parent `767307a`. Commit subject **Improve crawl and share metadata and reduce the public entry bundle**.
+
+Added canonical www metadata, Open Graph, Twitter card, Person JSON-LD, a 1200×630 social image, real robots and sitemap responses, admin noindex response header and client-side noindex for private/unknown routes. A failed route chunk now offers a recovery link. Manrope Latin is self-hosted with its OFL license. Removed unused template images, old visual components/hooks, retired public layout rules and the unused Lenis/Motion packages. Scroll progress now uses passive browser events, animation frames and resize observation. Shared working UI, backend and existing database contracts were preserved. Corrected README links and refreshed the complete annotated tree.
+
+Build and output guard passed; lint passed; 36/36 tests passed. Local browser CRUD passed at 1440/390px. The 16 viewport/theme runs, workbench and contact, keyboard checks, live gallery, filters, cold-start/retry/empty fixtures, route recovery via deliberately failed admin chunk, admin metadata and CV download all passed. No tagged axe violations on either desktop homepage theme. PDF, WebP, JPG, font, text and XML content types verified. Unauthenticated session GET returned 401. Main JS fell from 155.33 to 104.96 kB gzip; the new hero image is 108,342 bytes and the font is 24,532 bytes. One Lighthouse 13.6.0 simulated mobile localhost run measured Performance 98, Accessibility 100, Best Practices 100, SEO 100, LCP 2.4s, CLS 0, TBT 30ms. See `docs/qa/studio/results.json`. Physical mobile devices, assistive technology walkthroughs, field INP and LinkedIn access behind its bot challenge remain unverified.
+
+Changed paths (including checkpoint documents):
+
+- `PROJECT_STRUCTURE.md`
+- `docs/qa/studio/contact-1101.png`
+- `docs/qa/studio/contact-390.png`
+- `docs/qa/studio/hero-1440.png`
+- `docs/qa/studio/hero-390.png`
+- `docs/qa/studio/projects.png`
+- `frontend/README.md`
+- `frontend/index.html`
+- `frontend/package-lock.json`
+- `frontend/package.json`
+- `frontend/src/App.css`
+- `frontend/src/App.jsx`
+- `frontend/src/assets/hero.png`
+- `frontend/src/assets/react.svg`
+- `frontend/src/assets/vite.svg`
+- `frontend/src/components/Counter.jsx`
+- `frontend/src/components/Magnetic.jsx`
+- `frontend/src/components/RevealOnScroll.jsx`
+- `frontend/src/components/ScrollProgress.jsx`
+- `frontend/src/components/SectionHeading.jsx`
+- `frontend/src/components/Surface.jsx`
+- `frontend/src/hooks/useCompactLayout.js`
+- `frontend/src/hooks/useMagnetic.js`
+- `frontend/src/hooks/useSpotlight.js`
+- `frontend/src/hooks/useTypewriter.js`
+- `frontend/src/index.css`
+- `frontend/src/studio.css`
+- `frontend/tests/review.test.mjs`
+- `frontend/vercel.json`
+- `docs/qa/studio/results.json`
+- `frontend/public/fonts/Manrope-OFL.txt`
+- `frontend/public/fonts/manrope-latin.woff2`
+- `frontend/public/robots.txt`
+- `frontend/public/share.jpg`
+- `frontend/public/sitemap.xml`
+- `REDESIGN_LOG.md`
+- `CODEX_HANDOFF.md`
+
+Next: Push the tested feature branch, open the PR and verify the Vercel Preview before requesting release approval.

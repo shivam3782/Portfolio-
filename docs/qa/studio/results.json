@@ -1,0 +1,44 @@
+{
+  "lighthouse": "13.6.0",
+  "chrome": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/157.0.0.0 Safari/537.36",
+  "url": "http://127.0.0.1:4187/",
+  "mode": "mobile",
+  "throttling": "simulate",
+  "date": "2026-11-19T17:31:57.682Z",
+  "scores": {
+    "performance": 98,
+    "accessibility": 100,
+    "best-practices": 100,
+    "seo": 100,
+    "agentic-browsing": 50
+  },
+  "metrics": {
+    "largest-contentful-paint": "2.4\u00a0s",
+    "first-contentful-paint": "0.8\u00a0s",
+    "cumulative-layout-shift": "0",
+    "total-blocking-time": "30\u00a0ms"
+  },
+  "viewportWidths": [
+    360,
+    390,
+    430,
+    768,
+    1024,
+    1101,
+    1440,
+    1920
+  ],
+  "themes": [
+    "dark",
+    "light"
+  ],
+  "axeDesktopTaggedViolations": {
+    "light": 0,
+    "dark": 0
+  },
+  "unitTests": 36,
+  "adminBrowser": [
+    "1440px mock CRUD passed",
+    "390px mock CRUD passed"
+  ]
+}

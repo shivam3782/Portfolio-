@@ -1,27 +1,11 @@
-# Shivam Sharma portfolio frontend
+# Shivam Sharma’s portfolio
 
-React/Vite static SPA. The Express/MongoDB backend runs separately in `../backend`; it is not automatically hosted by the frontend.
+React and Vite serve the public studio and project management workspace. Vercel builds this directory and proxies `/api` to the existing Express service on Render.
 
-- Local: start the backend, then `npm run dev`. `/api` is proxied locally.
-- Production: `npm run build` uses same-origin `/api` by default and validates the emitted assets. The checked-in Vercel configuration forwards `/api` to the existing separate Render service before the SPA fallback.
-- Alternative hosting: set the public HTTPS backend origin in `VITE_API_URL`; see `.env.example`.
-- Do not add backend secrets to any `VITE_` value.
+Use Node 22.12 or newer. From the repository root, run `npm ci --prefix backend` and `npm ci --prefix frontend`. The frontend test suite imports the backend router.
 
-See [deployment configuration](../DEPLOYMENT_GUIDE.md), [visual QA](../VISUAL_QA.md), [missing screenshots](../PROJECT_ASSETS.md) and [current verification](../REDESIGN_REVIEW.md).
+From this directory run `npm run dev` for development, `npm run build` for the verified production bundle, `npm run preview` to serve the bundle, and `npm run lint` plus `npm test` for static and isolated regression checks. For browser CRUD regression, run a local preview on port 4187 and `npm run test:admin-browser` with Chrome installed. Set `QA_BASE_URL` to use a different loopback port.
 
-## Original Vite template notes
+The public API client uses same-origin requests by default. Local Vite forwards to port 3000 unless `API_PROXY_TARGET` selects another backend. For interactive CRUD, use a disposable database and local key. Backend secrets belong only on the server.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
-
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+[Architecture and inventory](../PROJECT_STRUCTURE.md) · [Changes, screenshots and rollback](../REDESIGN_LOG.md) · [Continuation checkpoint](../CODEX_HANDOFF.md)

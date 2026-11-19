@@ -1,6 +1,6 @@
 /* Public portfolio. Admin inherits the color tokens and keeps its own workspace layout. */
 :root { --display-serif: Georgia, 'Times New Roman', serif; }
-.studio-heading, .section-heading h2 { font-size: clamp(2.25rem, 4.3vw, 4.25rem); font-weight: 550; letter-spacing: -.065em; line-height: 1.08; }
+.studio-heading { font-size: clamp(2.25rem, 4.3vw, 4.25rem); font-weight: 550; letter-spacing: -.065em; line-height: 1.08; }
 .studio-hero em, .profile-heading em, .studio-footer em { font-family: var(--display-serif); font-weight: 400; }
 .site-header { background: var(--bg); backdrop-filter: none; }
 .nav-shell { min-height: 72px; padding-inline: 0; width: min(1280px, calc(100% - 112px)); gap: 24px; }
@@ -149,3 +149,8 @@
   .index-view .project-body { display: block; }
   .project-card .illustration-label { font-size: .67rem; }
 }
+
+@media (prefers-reduced-motion: no-preference) {
+  :root:not([data-motion=paused]) .route-content { animation: route-appear .16s ease-out; }
+}
+@keyframes route-appear { from { opacity: .6; } to { opacity: 1; } }
