@@ -170,3 +170,7 @@ App now places the workbench in a hero dialog, the mascot in About, and the educ
 ### Stage 3 update
 
 `Projects.jsx` owns gallery/index mode, query and technology filters, and request status. `ProjectCard.jsx` supports a text-only index. `docs/qa/studio/projects.png` captures the gallery. The interaction suite now includes an index/filter regression.
+
+### Stage 4 update
+
+Added `frontend/scripts/test-admin-browser.mjs` and `npm run test:admin-browser`. Start a local built preview, set `QA_BASE_URL` to its loopback origin (default port 4187), then run the script from frontend with Chrome installed. `QA_BROWSER` optionally selects another installed Chromium channel. Fixtures exist only in the test context.

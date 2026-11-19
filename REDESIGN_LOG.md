@@ -164,3 +164,25 @@ Changed paths (including checkpoint documents):
 - `CODEX_HANDOFF.md`
 
 Next: Test and refine the authenticated workspace using isolated API fixtures.
+
+## Stage 4 · Owner workspace and browser regression · November 19, 2026
+
+Branch `portfolio-polish-2026`, parent `edf2e89`. Commit subject **Make dashboard metrics actionable and test isolated browser CRUD**.
+
+Reframed the console sign-in around the new cover art and made dashboard asset counts actionable. Missing-demo or preview-image counts filter the table without changing saved order. The visual changes use the public theme tokens; session verification, key lifetime and server contracts are unchanged.
+
+Added playwright-core 1.65.1 as a pinned development dependency (zero client bundle imports). The local-only browser test blocks external origins and handles every API request in memory. It covers invalid login, sign-in, missing-demo filter, field validation, create, position change, expired authorization, draft retention, delete cancel/confirm, lock and credential storage checks. Build + lint passed; 36/36 tests passed. `npm run test:admin-browser` passed at 1440 and 390px. No production CRUD.
+
+Changed paths (including checkpoint documents):
+
+- `frontend/scripts/test-admin-browser.mjs`
+- `frontend/package-lock.json`
+- `frontend/package.json`
+- `frontend/src/components/AdminPanel.jsx`
+- `frontend/src/components/admin/ProjectLibrary.jsx`
+- `frontend/src/components/admin/admin.css`
+- `REDESIGN_LOG.md`
+- `PROJECT_STRUCTURE.md`
+- `CODEX_HANDOFF.md`
+
+Next: Polish keyboard navigation, motion handling and theme preferences.

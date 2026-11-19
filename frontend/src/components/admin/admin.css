@@ -322,3 +322,11 @@
   .access-icon { margin-bottom: 26px; }
 }
 @media (prefers-reduced-motion:reduce) { .admin-spinner { animation: none; border-right-color: currentColor; } }
+.console-login-brand .console-cover { width: min(100%, 450px); padding: 0; }
+.console-cover img { width: 100%; height: clamp(140px,30vh,320px); object-fit: cover; object-position: center 46%; border-radius: 12px; }
+.console-cover h2 em { color: var(--accent); font-family: var(--display-serif); font-weight: 400; }
+button.dashboard-metric { text-align: left; }
+.dashboard-metric[aria-pressed=true] { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 5%, var(--surface)); }
+.dashboard-metric:hover { border-color: var(--control-border); }
+.dashboard-metric p, .editor-section-heading p { font-size: .82rem; }
+.dashboard-metric strong { display: block; font-family: var(--display-serif); font-style: italic; font-weight: 400; }
