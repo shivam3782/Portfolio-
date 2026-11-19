@@ -35,6 +35,7 @@ function Shell() {
   useEffect(() => {
     const handler = event => {
       if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 'k') {
+        if (document.querySelector('dialog[open]:not(.command-dialog)')) return;
         event.preventDefault();
         setCommand(value => !value);
       }

@@ -186,3 +186,26 @@ Changed paths (including checkpoint documents):
 - `CODEX_HANDOFF.md`
 
 Next: Polish keyboard navigation, motion handling and theme preferences.
+
+## Stage 5 · Keyboard, responsive and theme behavior · November 19, 2026
+
+Branch `portfolio-polish-2026`, parent `93e4db9`. Commit subject **Respect native preferences and improve keyboard navigation across the studio**.
+
+Theme now follows live system changes until the visitor explicitly selects a mode. The page tint tracks that selection. The navigation distinguishes the education and mentoring columns even when they align on desktop, and correctly identifies contact at page end. Added a certification command. Ctrl/Cmd+K leaves other modal dialogs in control. Keyboard sequence handling skips inputs and dialogs.
+
+Build and lint passed. A test assuming a dark first visit exposed the previous default assumption; it now verifies the real system preference and optional persistence. 36/36 passed. Chrome verified first Tab/skip, live light/dark changes and reload, reduced-motion mascot suppression, workbench Escape/focus return, modal shortcut behavior, desktop adjacent-section navigation and mobile menu Escape.
+
+Changed paths (including checkpoint documents):
+
+- `frontend/src/App.jsx`
+- `frontend/src/components/CommandPalette.jsx`
+- `frontend/src/components/Navbar.jsx`
+- `frontend/src/hooks/useKonami.js`
+- `frontend/src/hooks/useScrollSpy.js`
+- `frontend/src/hooks/useTheme.js`
+- `frontend/tests/interaction.test.mjs`
+- `REDESIGN_LOG.md`
+- `PROJECT_STRUCTURE.md`
+- `CODEX_HANDOFF.md`
+
+Next: Complete SEO, optimize the entry bundle and measure the final candidate.

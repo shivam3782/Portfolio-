@@ -175,12 +175,15 @@ test('admin login, temporary sorting, edit/cancel and locking work with an isola
 test('theme changes update the root and persist the selected value in isolated storage', async () => {
   function Harness() { const [theme, toggle] = useTheme(); return h('button', { onClick: toggle }, theme); }
   await mount(h(Harness));
-  assert.equal(document.documentElement.dataset.theme, 'dark');
-  await click(button('dark'));
-  assert.equal(document.documentElement.dataset.theme, 'light');
-  assert.equal(localStorage.getItem('portfolio-theme'), 'light');
-  await click(button('light'));
-  assert.equal(localStorage.getItem('portfolio-theme'), 'dark');
+  const initial = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+  const other = initial === 'dark' ? 'light' : 'dark';
+  assert.equal(document.documentElement.dataset.theme, initial);
+  assert.equal(localStorage.getItem('portfolio-theme'), null);
+  await click(button(initial));
+  assert.equal(document.documentElement.dataset.theme, other);
+  assert.equal(localStorage.getItem('portfolio-theme'), other);
+  await click(button(other));
+  assert.equal(localStorage.getItem('portfolio-theme'), initial);
 });
 
 test('a fresh visit leaves keyboard focus alone and an explicit skip link focuses main', async () => {

@@ -6,8 +6,8 @@ import Icon from './Icon';
 
 export default function Navbar({ onCommand, theme, onTheme, onMenu }) {
   const [open, setOpen] = useState(false);
-  const { pathname } = useLocation();
-  const active = useScrollSpy(pathname);
+  const { pathname, hash } = useLocation();
+  const active = useScrollSpy(pathname, hash);
   const dialog = useRef(null);
   const trigger = useRef(null);
   const close = () => {

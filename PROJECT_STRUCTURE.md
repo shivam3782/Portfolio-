@@ -174,3 +174,7 @@ App now places the workbench in a hero dialog, the mascot in About, and the educ
 ### Stage 4 update
 
 Added `frontend/scripts/test-admin-browser.mjs` and `npm run test:admin-browser`. Start a local built preview, set `QA_BASE_URL` to its loopback origin (default port 4187), then run the script from frontend with Chrome installed. `QA_BROWSER` optionally selects another installed Chromium channel. Fixtures exist only in the test context.
+
+### Stage 5 update
+
+`useTheme.js` distinguishes explicit selection from system preference. `useScrollSpy.js` takes the hash to resolve aligned sections. `CommandPalette.jsx` exposes certifications, and `App.jsx` leaves active native dialogs in control.

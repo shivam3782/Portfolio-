@@ -6,7 +6,7 @@ export default function useKonami() {
     let position = 0;
     let timeout;
     const onKey = event => {
-      if (event.target.closest('input, textarea, [contenteditable="true"]')) return;
+      if (event.target.closest?.('input, textarea, select, dialog, [contenteditable="true"]')) return;
       const key = event.key.length === 1 ? event.key.toLowerCase() : event.key;
       position = key === sequence[position] ? position + 1 : key === sequence[0] ? 1 : 0;
       if (position === sequence.length) {

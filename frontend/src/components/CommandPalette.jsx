@@ -33,6 +33,9 @@ export default function CommandPalette({
     label: `Go to ${label}`,
     section: id
   })), {
+    label: 'Go to Certifications',
+    section: 'proof'
+  }, {
     label: 'Download CV',
     href: links.cv,
     download: true
