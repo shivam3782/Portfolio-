@@ -27,6 +27,8 @@
   --scene-dark: #101620;
   --scene-panel: #242e3e;
   --scene-line: #60718a;
+  --type-meta: .8125rem;
+  --type-control: .875rem;
   --mono: 'JetBrains Mono', Consolas, monospace;
 }
 :root[data-theme=light] {

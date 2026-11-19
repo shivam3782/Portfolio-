@@ -21,6 +21,7 @@ const { default: AdminPanel } = await vite.ssrLoadModule('/src/components/AdminP
 const { default: Navbar } = await vite.ssrLoadModule('/src/components/Navbar.jsx');
 const { default: CommandPalette } = await vite.ssrLoadModule('/src/components/CommandPalette.jsx');
 const { default: useTheme } = await vite.ssrLoadModule('/src/hooks/useTheme.js');
+const { default: useSmoothScroll } = await vite.ssrLoadModule('/src/hooks/useSmoothScroll.js');
 const originalFetch = globalThis.fetch;
 let root, router;
 const projects = [
@@ -180,6 +181,19 @@ test('theme changes update the root and persist the selected value in isolated s
   assert.equal(localStorage.getItem('portfolio-theme'), 'light');
   await click(button('light'));
   assert.equal(localStorage.getItem('portfolio-theme'), 'dark');
+});
+
+test('a fresh visit leaves keyboard focus alone and an explicit skip link focuses main', async () => {
+  function Page() {
+    useSmoothScroll(false);
+    return h('div', { id: 'root' }, h('main', { id: 'main-content' }, 'Portfolio'));
+  }
+  await mount(null, { path: '/', routes: [{ path: '/', element: h(Page) }] });
+  await new Promise(resolve => setTimeout(resolve, 10));
+  assert.equal(document.activeElement, document.body);
+  await act(async () => router.navigate('/#main-content'));
+  await new Promise(resolve => setTimeout(resolve, 10));
+  assert.equal(document.activeElement, document.getElementById('main-content'));
 });
 
 test('palette search and Enter navigate to Leadership in the isolated router', async () => {

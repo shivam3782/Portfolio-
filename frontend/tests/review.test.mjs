@@ -238,7 +238,7 @@ test('server validation rejects malformed URLs and restricts writes to supported
 
 test('Leadership is available to desktop/mobile navigation and the command palette', async () => {
   const { sections } = await vite.ssrLoadModule('/src/data/content.js');
-  assert.deepEqual(sections.map(p => p[1]), ['About', 'Projects', 'Skills', 'Education', 'Leadership', 'Contact']);
+  assert.deepEqual(sections.map(p => p[1]), ['Projects', 'About', 'Skills', 'Education', 'Leadership', 'Contact']);
   const { default: Navbar } = await vite.ssrLoadModule('/src/components/Navbar.jsx');
   const { default: CommandPalette } = await vite.ssrLoadModule('/src/components/CommandPalette.jsx');
   const nav = renderToStaticMarkup(createElement(MemoryRouter, null, createElement(Navbar, { theme: 'dark', onCommand() {}, onTheme() {}, onMenu() {} })));

@@ -1,4 +1,9 @@
-export const sections = [['about', 'About'], ['projects', 'Projects'], ['skills', 'Skills'], ['education', 'Education'], ['mentoring', 'Leadership'], ['contact', 'Contact']];
+export const profile = {
+  role: 'Software engineer · Full-stack & AI/ML',
+  introduction: 'I build web and mobile applications, from an assistant that answers questions about insurance policies to an indoor navigation app.',
+  location: 'Mumbai, India',
+};
+export const sections = [['projects', 'Projects'], ['about', 'About'], ['skills', 'Skills'], ['education', 'Education'], ['mentoring', 'Leadership'], ['contact', 'Contact']];
 export const links = {
   github: 'https://github.com/shivam3782',
   linkedin: 'https://www.linkedin.com/in/shivam-sharma-ba2a4823a/',

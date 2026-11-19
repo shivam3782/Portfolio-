@@ -1,0 +1,162 @@
+{
+  "browser": "157.0.8103.80",
+  "method": "Headless Chrome, local Vite production preview, emulated viewport and touch; network writes blocked.",
+  "matrix": [
+    {
+      "width": 360,
+      "height": 800,
+      "pageWidth": 360,
+      "projectY": 663,
+      "ctaBottom": 545,
+      "name": "Shivam Sharma.",
+      "projects": 5,
+      "focus": "BODY",
+      "theme": "dark"
+    },
+    {
+      "width": 360,
+      "height": 800,
+      "pageWidth": 360,
+      "projectY": 663,
+      "ctaBottom": 545,
+      "name": "Shivam Sharma.",
+      "projects": 5,
+      "focus": "BODY",
+      "theme": "light"
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "pageWidth": 390,
+      "projectY": 617,
+      "ctaBottom": 499,
+      "name": "Shivam Sharma.",
+      "projects": 5,
+      "focus": "BODY",
+      "theme": "light"
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "pageWidth": 390,
+      "projectY": 617,
+      "ctaBottom": 499,
+      "name": "Shivam Sharma.",
+      "projects": 5,
+      "focus": "BODY",
+      "theme": "dark"
+    },
+    {
+      "width": 430,
+      "height": 932,
+      "pageWidth": 430,
+      "projectY": 626,
+      "ctaBottom": 508,
+      "name": "Shivam Sharma.",
+      "projects": 5,
+      "focus": "BODY",
+      "theme": "dark"
+    },
+    {
+      "width": 430,
+      "height": 932,
+      "pageWidth": 430,
+      "projectY": 626,
+      "ctaBottom": 508,
+      "name": "Shivam Sharma.",
+      "projects": 5,
+      "focus": "BODY",
+      "theme": "light"
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "pageWidth": 768,
+      "projectY": 596,
+      "ctaBottom": 456,
+      "name": "Shivam Sharma.",
+      "projects": 5,
+      "focus": "BODY",
+      "theme": "dark"
+    },
+    {
+      "width": 768,
+      "height": 1024,
+      "pageWidth": 768,
+      "projectY": 596,
+      "ctaBottom": 456,
+      "name": "Shivam Sharma.",
+      "projects": 5,
+      "focus": "BODY",
+      "theme": "light"
+    },
+    {
+      "width": 1024,
+      "height": 768,
+      "pageWidth": 1024,
+      "projectY": 680,
+      "ctaBottom": 516,
+      "name": "Shivam Sharma.",
+      "projects": 5,
+      "focus": "BODY",
+      "theme": "dark"
+    },
+    {
+      "width": 1024,
+      "height": 768,
+      "pageWidth": 1024,
+      "projectY": 680,
+      "ctaBottom": 516,
+      "name": "Shivam Sharma.",
+      "projects": 5,
+      "focus": "BODY",
+      "theme": "light"
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "pageWidth": 1440,
+      "projectY": 740,
+      "ctaBottom": 576,
+      "name": "Shivam Sharma.",
+      "projects": 5,
+      "focus": "BODY",
+      "theme": "light",
+      "axe": []
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "pageWidth": 1440,
+      "projectY": 740,
+      "ctaBottom": 576,
+      "name": "Shivam Sharma.",
+      "projects": 5,
+      "focus": "BODY",
+      "theme": "dark",
+      "axe": []
+    },
+    {
+      "width": 1920,
+      "height": 1080,
+      "pageWidth": 1920,
+      "projectY": 771,
+      "ctaBottom": 606,
+      "name": "Shivam Sharma.",
+      "projects": 5,
+      "focus": "BODY",
+      "theme": "dark"
+    },
+    {
+      "width": 1920,
+      "height": 1080,
+      "pageWidth": 1920,
+      "projectY": 771,
+      "ctaBottom": 606,
+      "name": "Shivam Sharma.",
+      "projects": 5,
+      "focus": "BODY",
+      "theme": "light"
+    }
+  ]
+}

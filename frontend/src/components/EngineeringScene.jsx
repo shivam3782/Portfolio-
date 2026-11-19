@@ -17,7 +17,7 @@ export default function EngineeringScene() {
     ref.current?.style.setProperty('--scene-y', '0deg');
   };
   return <div className="engineering-scene" ref={ref} onPointerMove={move} onPointerLeave={reset}>
-    <div className="scene-caption mono"><span><i />THE WORKBENCH</span><span>VOL. 01 — 2026</span></div>
+    <div className="scene-caption mono"><span><i />THE WORKBENCH</span><span aria-hidden="true" className="scene-file">{mode === 'build' ? 'JS' : 'PY'}</span></div>
     <div className="scene-perspective">
       <svg className="workstation" viewBox="0 0 600 500" role="img" aria-labelledby="workstation-title workstation-desc">
         <title id="workstation-title">Shivam’s digital workbench</title><desc id="workstation-desc">An original illustration of a code workstation and an orange robot assistant. Switch between build and explore for another view.</desc>
@@ -51,9 +51,8 @@ export default function EngineeringScene() {
         <g transform="translate(417 362)"><path d="m0 0 25-14L49 0 24 14Z" fill="var(--scene-panel)" stroke="var(--scene-line)" /><path d="M0 0v25l24 14V14m0 25 25-14V0" fill="var(--scene-dark)" stroke="var(--scene-line)" /><path d="M25-14v-28m0 11c-18 0-20-17-20-17 17 0 20 8 20 17m0-4c17 0 20-17 20-17-17 0-20 8-20 17" fill="#427f73" stroke="#7ecdbb" /></g>
         <g stroke="var(--accent)" fill="var(--accent)"><path d="M491 85h14m-7-7v14M105 170h10m-5-5v10" /><circle cx="479" cy="273" r="3" /><circle cx="302" cy="35" r="4" /></g>
       </svg>
-      <span className="scene-note mono">Ideas in.<br /><b>Useful software out.</b></span>
     </div>
-    <div className="scene-controls"><span className="mono">A MIND AT WORK</span><div role="group" aria-label="Workbench illustration mode">{['build', 'explore'].map(item => <button key={item} aria-pressed={mode === item} onClick={() => setMode(item)}>{item === 'build' ? '01 Build' : '02 Explore'}</button>)}</div></div>
+    <div className="scene-controls"><span className="mono">Workbench mode</span><div role="group" aria-label="Workbench illustration mode">{['build', 'explore'].map(item => <button key={item} aria-pressed={mode === item} onClick={() => setMode(item)}>{item === 'build' ? 'Build' : 'Explore'}</button>)}</div></div>
   </div>;
 }
 

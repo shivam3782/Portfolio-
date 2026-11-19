@@ -2,7 +2,7 @@
 
 ## Stage 0 · November 19, 2026 · Discovery
 
-**Production baseline** `d78f784c09b68340ac7e723c582efd995b737cc9`. Branch `portfolio-polish-2026` started from freshly fetched `origin/main`. Locate the audit commit with `git log -1 --format=%H --grep="^Document verified portfolio baseline"`. The ledger uses a history lookup for the commit containing the ledger itself.
+**Production baseline** `d78f784c09b68340ac7e723c582efd995b737cc9`. Branch `portfolio-polish-2026` started from freshly fetched `origin/main`. Audit commit **4023dac**. Locate it with `git log -1 --format=%H --grep="^Document verified portfolio baseline"`. The ledger uses a history lookup for the commit containing the ledger itself.
 
 ### What is already deployed
 
@@ -75,9 +75,36 @@ All entries below are additions. No application, backend, dependency or deployme
 
 No repository dependency changes. Playwright, axe and Lighthouse ran from a temporary directory outside the project. No database migrations, seeds, production credentials or production mutations were involved. Existing isolated admin coverage uses fixtures.
 
+## Stage 1 · November 19, 2026 · Hero and navigation review
+
+**Branch** `portfolio-polish-2026`. Parent audit commit `4023dac`. Resolve the visual checkpoint with `git log -1 --format=%H --grep="^Lead the portfolio with identity"`. This is the first material visual checkpoint and awaits owner review.
+
+Shivam's name leads the page, followed by a statement grounded in the insurance assistant and indoor navigation work. Projects and résumé are the two primary actions. The original SVG has a quieter frame with readable Build/Explore controls. Mobile still prioritizes project evidence before the workstation. Availability and location share one line. Projects now precedes About throughout the shared navigation registry.
+
+| Modified file | Change and reason |
+| --- | --- |
+| `frontend/src/components/Hero.jsx` | Reworked title, real project examples and actions; consolidated repeated identity and removed the closing slogan. |
+| `frontend/src/data/content.js` | Centralized hero role, introduction and location; matched navigation to document order. |
+| `frontend/src/components/EngineeringScene.jsx` | Kept SVG geometry and both modes; simplified caption, language indicator and control labels. |
+| `frontend/src/index.css` | Added shared metadata and control font sizes. |
+| `frontend/src/App.css` | Adjusted type, frame, control spacing, responsive sizes and hero height; removed rules for retired elements. |
+| `frontend/src/hooks/useSmoothScroll.js` | Initial entry and unanchored history traversal preserve browser focus. Explicit navigation still moves focus; changing motion preference no longer retriggers anchor navigation. |
+| `frontend/tests/interaction.test.mjs` | Added regression for initial keyboard focus and explicit skip navigation. |
+| `frontend/tests/review.test.mjs` | Updated navigation order assertion, retaining coverage for every section. |
+| `CODEX_HANDOFF.md`, `PROJECT_STRUCTURE.md`, `REDESIGN_LOG.md` | Recorded new checkpoint, evidence tree, test inventory, pending work and decisions. |
+
+Added `docs/qa/stage-1/1440-dark.png`, `1440-light.png`, `390-dark.png` and `390-light.png` for direct comparison with the live baseline. Added `docs/qa/stage-1/checks.json` for viewport measurements. No deleted files or dependency changes.
+
+**Verification.** Build and output guard passed, 491 modules, main JS 155.23 kB gzip and public CSS 8.91 kB gzip. Lint passed. The first test run caught an existing assertion for the former menu order; after aligning that expectation with the intentional change, **35/35 passed**. Chrome 157 verified all 14 viewport/theme combinations. Each rendered five projects, had no document overflow or uncaught page errors, and placed both hero actions inside the viewport. First Tab reached the skip link, Enter focused main, View projects focused the gallery, and Explore changed mode. Both 390px themes passed the mobile Leadership navigation check. At 1440px both themes passed axe (zero tagged violations), résumé download and direct admin → command palette → Projects focus checks. Tests used read-only production GET or isolated fixtures. The Stage 0 Lighthouse scores have not been remeasured for Stage 1.
+
+The Projects section boundary moved from 949 to **740px** at 1440×900 and from 737 to **617px** at 390×844. At 360×800 the bottom of the CTA group measured 545px. The first project card is further down the section. Keyboard focus remains visible when a visitor explicitly activates a skip or section link.
+
+[Desktop after](docs/qa/stage-1/1440-dark.png) · [Mobile after](docs/qa/stage-1/390-light.png) · [All Stage 1 measurements](docs/qa/stage-1/checks.json).
+
+**Next:** Review the hero and workbench before continuing to Stage 2. Planned content work reduces duplicated mentoring copy, clarifies headings and removes misleading certification link affordances. Next authenticated browser testing uses a local fixture. Rollback for this visual stage is a single revert of its commit on the feature branch.
+
 ## Release and rollback
 
 Branch is local. PR, candidate preview, approval, merge and new deployment are pending. Before release, refresh the known-good SHA and deployment ID in case main advances. Re-run lint/build/tests and the browser suite on the release candidate. Verify the candidate's Vercel target says Preview before sharing.
 
 If an approved release fails, restore the preceding verified deployment using the Vercel project's Rollback action and verify both domain aliases resolve to the restored deployment. At baseline that target is `dpl_4mHPSv4DjyhoPYdy1Pmq6C38z4yP` / `d78f784c09b68340ac7e723c582efd995b737cc9`. Reconcile Git through a revert PR for the release merge (`git revert -m 1 <merge-sha>` for a merge commit, ordinary revert for a squash). Recheck homepage, ordered GET, unauthenticated session 401, deep admin route and PDF. No MongoDB rollback is required for frontend-only changes.
-

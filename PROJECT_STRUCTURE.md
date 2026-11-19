@@ -1,6 +1,6 @@
 # Portfolio architecture and file inventory
 
-Verified November 19, 2026 against Git tree `d78f784` and the running frontend. The inventory below includes this audit's additions. The three root handoff documents are maintained together.
+Verified November 19, 2026 against Git tree `d78f784` and the running frontend. The inventory includes Stage 1 changes on portfolio-polish-2026. The three root handoff documents are maintained together.
 
 ## Run locally
 
@@ -68,13 +68,19 @@ Paths are repository relative. Generated dependencies, build output, Git interna
 │       └── initialize-project-order.cjs  — Historical MongoDB ordering migration
 ├── docs/
 │   └── qa/
-│       └── stage-0/
-│           ├── baseline.json  — Measured baseline viewport and Lighthouse results
-│           ├── live-1440-dark.png  — Live homepage screenshot, named by viewport width and theme
-│           ├── live-1440-light.png  — Live homepage screenshot, named by viewport width and theme
-│           ├── live-390-dark.png  — Live homepage screenshot, named by viewport width and theme
-│           ├── live-390-light.png  — Live homepage screenshot, named by viewport width and theme
-│           └── project.png  — Baseline featured project capture from local build
+│       ├── stage-0/
+│       │   ├── baseline.json  — Measured baseline viewport and Lighthouse results
+│       │   ├── live-1440-dark.png  — Live homepage screenshot, named by viewport width and theme
+│       │   ├── live-1440-light.png  — Live homepage screenshot, named by viewport width and theme
+│       │   ├── live-390-dark.png  — Live homepage screenshot, named by viewport width and theme
+│       │   ├── live-390-light.png  — Live homepage screenshot, named by viewport width and theme
+│       │   └── project.png  — Baseline featured project capture from local build
+│       └── stage-1/
+│           ├── 1440-dark.png  — Desktop hero review, dark
+│           ├── 1440-light.png  — Desktop hero review, light
+│           ├── 390-dark.png  — Mobile hero review, dark
+│           ├── 390-light.png  — Mobile hero review, light
+│           └── checks.json  — Rendered dimensions, interaction run context and axe results
 └── frontend/
     ├── .env.development  — Tracked Vite development mode configuration
     ├── .env.example  — Public list of configuration names and setup examples
@@ -151,7 +157,7 @@ Paths are repository relative. Generated dependencies, build output, Git interna
     │   └── main.jsx  — Mount React root
     ├── tests/
     │   ├── configuration.test.mjs  — 4 API origin, Vite and server configuration tests
-    │   ├── interaction.test.mjs  — 16 isolated interactive component and admin tests
+    │   ├── interaction.test.mjs  — 17 isolated interactive component, focus and admin tests
     │   └── review.test.mjs  — 14 API, Express, ordering, rendering, contrast and asset tests
     ├── vercel.json  — Build output, ordered API/SPA rewrites and response header
     └── vite.config.js  — React and Tailwind plugins, API origin guard and local proxies
