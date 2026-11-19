@@ -1,0 +1,153 @@
+{
+  "baseline": "d78f784c09b68340ac7e723c582efd995b737cc9",
+  "date": "2026-11-19",
+  "browser": "Chrome 157.0.8103.80, headless Windows, emulated viewports",
+  "command": "npm run preview -- --host 127.0.0.1 --port 4187",
+  "lighthouse": {
+    "version": "13.6.0",
+    "url": "http://127.0.0.1:4187/",
+    "formFactor": "mobile",
+    "throttling": "simulate",
+    "categories": {
+      "performance": 0.96,
+      "accessibility": 1,
+      "best-practices": 1,
+      "seo": 0.92,
+      "agentic-browsing": 0.5
+    },
+    "metrics": {
+      "first-contentful-paint": 1439.8063500000003,
+      "largest-contentful-paint": 2755.0120500000003,
+      "total-blocking-time": 28,
+      "cumulative-layout-shift": 0
+    }
+  },
+  "viewports": {
+    "local-360-light": {
+      "theme": "light",
+      "pageWidth": 360,
+      "projectSectionTop": 813,
+      "projectCount": 5,
+      "pageExceptions": []
+    },
+    "local-360-dark": {
+      "theme": "dark",
+      "pageWidth": 360,
+      "projectSectionTop": 813,
+      "projectCount": 5,
+      "pageExceptions": []
+    },
+    "local-390-light": {
+      "theme": "light",
+      "pageWidth": 390,
+      "projectSectionTop": 737,
+      "projectCount": 5,
+      "pageExceptions": []
+    },
+    "local-390-dark": {
+      "theme": "dark",
+      "pageWidth": 390,
+      "projectSectionTop": 737,
+      "projectCount": 5,
+      "pageExceptions": []
+    },
+    "local-430-dark": {
+      "theme": "dark",
+      "pageWidth": 430,
+      "projectSectionTop": 743,
+      "projectCount": 5,
+      "pageExceptions": []
+    },
+    "local-430-light": {
+      "theme": "light",
+      "pageWidth": 430,
+      "projectSectionTop": 743,
+      "projectCount": 5,
+      "pageExceptions": []
+    },
+    "local-768-light": {
+      "theme": "light",
+      "pageWidth": 768,
+      "projectSectionTop": 786,
+      "projectCount": 5,
+      "pageExceptions": []
+    },
+    "local-768-dark": {
+      "theme": "dark",
+      "pageWidth": 768,
+      "projectSectionTop": 786,
+      "projectCount": 5,
+      "pageExceptions": []
+    },
+    "local-1024-dark": {
+      "theme": "dark",
+      "pageWidth": 1024,
+      "projectSectionTop": 834,
+      "projectCount": 5,
+      "pageExceptions": []
+    },
+    "local-1024-light": {
+      "theme": "light",
+      "pageWidth": 1024,
+      "projectSectionTop": 834,
+      "projectCount": 5,
+      "pageExceptions": []
+    },
+    "local-1440-dark": {
+      "theme": "dark",
+      "pageWidth": 1440,
+      "projectSectionTop": 949,
+      "projectCount": 5,
+      "pageExceptions": []
+    },
+    "local-1440-light": {
+      "theme": "light",
+      "pageWidth": 1440,
+      "projectSectionTop": 949,
+      "projectCount": 5,
+      "pageExceptions": []
+    },
+    "local-1920-dark": {
+      "theme": "dark",
+      "pageWidth": 1920,
+      "projectSectionTop": 951,
+      "projectCount": 5,
+      "pageExceptions": []
+    },
+    "local-1920-light": {
+      "theme": "light",
+      "pageWidth": 1920,
+      "projectSectionTop": 951,
+      "projectCount": 5,
+      "pageExceptions": []
+    },
+    "live-390-light": {
+      "theme": "light",
+      "pageWidth": 390,
+      "projectSectionTop": 737,
+      "projectCount": 5,
+      "pageExceptions": []
+    },
+    "live-390-dark": {
+      "theme": "dark",
+      "pageWidth": 390,
+      "projectSectionTop": 737,
+      "projectCount": 5,
+      "pageExceptions": []
+    },
+    "live-1440-dark": {
+      "theme": "dark",
+      "pageWidth": 1440,
+      "projectSectionTop": 949,
+      "projectCount": 5,
+      "pageExceptions": []
+    },
+    "live-1440-light": {
+      "theme": "light",
+      "pageWidth": 1440,
+      "projectSectionTop": 949,
+      "projectCount": 5,
+      "pageExceptions": []
+    }
+  }
+}
