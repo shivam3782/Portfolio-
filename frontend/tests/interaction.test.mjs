@@ -263,3 +263,18 @@ test('the console can lock even when its project refresh fails', async () => {
   await click(document.querySelector('a[href="/admin/lock"]'));
   assert.ok(document.querySelector('#admin-key'));
 });
+
+test('public index and technology filter preserve the API order and recover from no matches', async () => {
+  const { default: Projects } = await vite.ssrLoadModule('/src/components/Projects.jsx');
+  globalThis.fetch = async () => Response.json(projects);
+  await mount(h(Projects));
+  const titles = () => [...document.querySelectorAll('.project-card h3')].map(node => node.textContent);
+  assert.deepEqual(titles(), projects.map(project => project.name));
+  await click(button('Index'));
+  assert.equal(document.querySelectorAll('.project-art').length, 0);
+  await type(document.querySelector('.tech-select select'), 'Python');
+  assert.deepEqual(titles(), [projects[0].name, projects[1].name]);
+  await type(document.querySelector('#public-project-search'), 'absent record');
+  await click(button('Clear filters'));
+  assert.deepEqual(titles(), projects.map(project => project.name));
+});

@@ -166,3 +166,7 @@ Paths are repository relative. Generated dependencies, build output, Git interna
 ### Stage 2 update
 
 App now places the workbench in a hero dialog, the mascot in About, and the education/mentoring sections in a responsive spread. `frontend/src/studio.css` owns the new public layouts; `frontend/public/workbench.webp` is the optimized original hero art. Added screenshot files `docs/qa/studio/hero-1440.png`, `hero-390.png`, `contact-1101.png` and `contact-390.png`. The Stage 0/1 inventory above describes the preceding baseline.
+
+### Stage 3 update
+
+`Projects.jsx` owns gallery/index mode, query and technology filters, and request status. `ProjectCard.jsx` supports a text-only index. `docs/qa/studio/projects.png` captures the gallery. The interaction suite now includes an index/filter regression.

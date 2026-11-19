@@ -142,3 +142,25 @@ Changed paths (including checkpoint documents):
 - `CODEX_HANDOFF.md`
 
 Next: Continue with the project gallery, compact project index and technology filtering.
+
+## Stage 3 · Project discovery · November 19, 2026
+
+Branch `portfolio-polish-2026`, parent `904d76b`. Commit subject **Add a compact work index and technology filtering to the live gallery**.
+
+The Gallery pairs a featured brief with project-specific concept art. Index removes artwork for quick scanning. Both views combine free-text search with an exact technology filter derived from the API. Empty and error states remain distinct, the delayed cold-start notice appears at four seconds and the timeout allows 65 seconds. A failed image now only suppresses that URL. The list remains server-ordered and missing links stay hidden.
+
+Build and lint passed, 36/36 tests passed. Chrome verified the five live projects, matching order across views, technology filtering, no-match recovery, slow→503→retry→empty fixture with two GETs. See `docs/qa/studio/projects.png`.
+
+Changed paths (including checkpoint documents):
+
+- `docs/qa/studio/projects.png`
+- `frontend/src/components/ProjectCard.jsx`
+- `frontend/src/components/ProjectIllustration.jsx`
+- `frontend/src/components/Projects.jsx`
+- `frontend/src/studio.css`
+- `frontend/tests/interaction.test.mjs`
+- `REDESIGN_LOG.md`
+- `PROJECT_STRUCTURE.md`
+- `CODEX_HANDOFF.md`
+
+Next: Test and refine the authenticated workspace using isolated API fixtures.

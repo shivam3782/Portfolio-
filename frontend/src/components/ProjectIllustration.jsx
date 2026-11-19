@@ -36,7 +36,6 @@ export default function ProjectIllustration({ name }) {
         <g fill="none" stroke="currentColor" strokeWidth="1.5"><path d="M160 190h320M320 100v180" strokeDasharray="5 6" /><rect x="260" y="130" width="120" height="120" rx="15" /><rect x="107" y="163" width="54" height="54" rx="8" /><rect x="480" y="163" width="54" height="54" rx="8" /></g><path d="m304 170-20 20 20 20m32-40 20 20-20 20m-10-49-12 58" fill="none" stroke="var(--art-accent)" strokeWidth="4" /><text x="211" y="317" className="art-mono" fill="currentColor">AN IDEA, ENGINEERED.</text>
       </>}
     </svg>
-    <span className="illustration-name">{name}</span>
   </div>;
 }
 
