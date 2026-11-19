@@ -1,31 +1,33 @@
+import { useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { links, profile } from '../data/content';
-import Icon from './Icon';
 import EngineeringScene from './EngineeringScene';
+import Icon from './Icon';
 
-export default function Hero({ compact = false }) {
+export default function Hero() {
+  const workbench = useRef(null);
   return (
-    <section id="home" className="hero" aria-labelledby="hero-title">
-      <div className="hero-grid">
-        <div className="hero-copy">
-          <p className="eyebrow">{profile.role}</p>
-          <h1 id="hero-title">Shivam <span>Sharma.</span></h1>
-          <p className="hero-statement">{profile.introduction}</p>
-          <div className="actions">
-            <Link to="/#projects" className="button primary">View projects<Icon name="arrow" /></Link>
-            <a className="button secondary" href={links.cv} download>Download résumé<Icon name="down" /></a>
-          </div>
-          <div className="hero-socials">
-            <a href={links.github} target="_blank" rel="noreferrer"><Icon name="github" size={18} />GitHub</a>
-            <a href={links.linkedin} target="_blank" rel="noreferrer"><Icon name="linkedin" size={18} />LinkedIn</a>
-          </div>
+    <section id="home" className="studio-hero" aria-labelledby="hero-title">
+      <div className="studio-intro">
+        <p className="studio-status"><i aria-hidden="true" />Open to opportunities</p>
+        <h1 id="hero-title">Software<br /><em>engineer.</em></h1>
+        <p className="studio-bio">{profile.introduction}</p>
+        <div className="studio-actions">
+          <Link className="studio-button solid" to="/#projects">View projects <Icon name="arrow" size={17} /></Link>
+          <a className="studio-button" href={links.cv} download>Résumé <Icon name="down" size={16} /></a>
         </div>
-        {!compact && <EngineeringScene />}
       </div>
-      <div className="hero-bottom">
-        <span className="availability"><i aria-hidden="true" />Open to opportunities</span>
-        <span>{profile.location}</span>
-      </div>
+      <figure className="studio-exhibit">
+        <img src="/workbench.webp" width="1000" height="1000" fetchPriority="high" alt="An illustrated orange computer and pocket-sized robot on a sunlit drafting desk." />
+        <figcaption>
+          <span>The workbench</span>
+          <button onClick={() => workbench.current.showModal()} aria-haspopup="dialog">Explore scene <Icon name="plus" size={17} /></button>
+        </figcaption>
+      </figure>
+      <dialog ref={workbench} className="studio-dialog" aria-label="Interactive workbench">
+        <div className="studio-dialog-bar"><strong>The interactive workbench</strong><button autoFocus onClick={() => workbench.current.close()}>Close ×</button></div>
+        <EngineeringScene />
+      </dialog>
     </section>
   );
 }

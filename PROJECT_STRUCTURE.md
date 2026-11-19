@@ -162,3 +162,7 @@ Paths are repository relative. Generated dependencies, build output, Git interna
     ├── vercel.json  — Build output, ordered API/SPA rewrites and response header
     └── vite.config.js  — React and Tailwind plugins, API origin guard and local proxies
 ```
+
+### Stage 2 update
+
+App now places the workbench in a hero dialog, the mascot in About, and the education/mentoring sections in a responsive spread. `frontend/src/studio.css` owns the new public layouts; `frontend/public/workbench.webp` is the optimized original hero art. Added screenshot files `docs/qa/studio/hero-1440.png`, `hero-390.png`, `contact-1101.png` and `contact-390.png`. The Stage 0/1 inventory above describes the preceding baseline.

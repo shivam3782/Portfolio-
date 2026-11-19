@@ -11,19 +11,16 @@ import Mentoring from './components/Mentoring';
 import ScrollProgress from './components/ScrollProgress';
 import Footer from './components/Footer';
 import About from './components/About';
-import Mascot from './components/Mascot';
-import EngineeringScene from './components/EngineeringScene';
-import useCompactLayout from './hooks/useCompactLayout';
 import useKonami from './hooks/useKonami';
 import useSmoothScroll from './hooks/useSmoothScroll';
 import useTheme from './hooks/useTheme';
 import useReducedMotion, { toggleMotion, useMotionPaused } from './hooks/useReducedMotion';
 import './App.css';
+import './studio.css';
 const AdminPanel = lazy(() => import('./components/AdminPanel'));
 const CommandPalette = lazy(() => import('./components/CommandPalette'));
-function Home() {
-  const compact = useCompactLayout();
-  return <main id="main-content" className="container"><Hero compact={compact} /><Projects />{compact && <div className="mobile-workbench"><EngineeringScene /></div>}<About /><Skills /><Education /><Mentoring /><Certifications /></main>;
+function Home({ onCommand }) {
+  return <main id="main-content" className="container"><Hero /><Projects /><About onCommand={onCommand} /><Skills /><div className="career-grid"><Education /><Mentoring /></div><Certifications /></main>;
 }
 function Shell() {
   const [command, setCommand] = useState(false),
@@ -51,7 +48,7 @@ function Shell() {
           opacity: 1
         }} transition={{
           duration: .16
-        }}><Suspense fallback={<main id="main-content" className="container service-state route-loading" role="status" aria-busy="true">Opening admin…</main>}><Routes location={location}><Route path="/" element={<Home />} /><Route path="/admin/*" element={<AdminPanel theme={theme} onTheme={toggleTheme} onCommand={() => setCommand(true)} />} /><Route path="*" element={<main id="main-content" className="container section"><h1>Page not found.</h1><Link to="/" className="button primary">Return home ↗</Link></main>} /></Routes></Suspense></motion.div>{!admin && <><Footer /><Mascot onCommand={() => setCommand(true)} /></>}{command && <Suspense fallback={<div className="cheat-toast" role="status">Opening commands...</div>}><CommandPalette open={command} onClose={close} onTheme={toggleTheme} onMotion={toggleMotion} motionPaused={motionPaused} /></Suspense>}{activated && <div className="cheat-toast" role="status">CHEAT CODE ACTIVATED</div>}</div></MotionConfig>;
+        }}><Suspense fallback={<main id="main-content" className="container service-state route-loading" role="status" aria-busy="true">Opening admin…</main>}><Routes location={location}><Route path="/" element={<Home onCommand={() => setCommand(true)} />} /><Route path="/admin/*" element={<AdminPanel theme={theme} onTheme={toggleTheme} onCommand={() => setCommand(true)} />} /><Route path="*" element={<main id="main-content" className="container section"><h1>Page not found.</h1><Link to="/" className="button primary">Return home ↗</Link></main>} /></Routes></Suspense></motion.div>{!admin && <Footer />}{command && <Suspense fallback={<div className="cheat-toast" role="status">Opening commands...</div>}><CommandPalette open={command} onClose={close} onTheme={toggleTheme} onMotion={toggleMotion} motionPaused={motionPaused} /></Suspense>}{activated && <div className="cheat-toast" role="status">CHEAT CODE ACTIVATED</div>}</div></MotionConfig>;
 }
 const router = createBrowserRouter([{ path: '*', element: <Shell /> }]);
 export default function App() {

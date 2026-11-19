@@ -108,3 +108,37 @@ The Projects section boundary moved from 949 to **740px** at 1440×900 and from 
 Branch is local. PR, candidate preview, approval, merge and new deployment are pending. Before release, refresh the known-good SHA and deployment ID in case main advances. Re-run lint/build/tests and the browser suite on the release candidate. Verify the candidate's Vercel target says Preview before sharing.
 
 If an approved release fails, restore the preceding verified deployment using the Vercel project's Rollback action and verify both domain aliases resolve to the restored deployment. At baseline that target is `dpl_4mHPSv4DjyhoPYdy1Pmq6C38z4yP` / `d78f784c09b68340ac7e723c582efd995b737cc9`. Reconcile Git through a revert PR for the release merge (`git revert -m 1 <merge-sha>` for a merge commit, ordinary revert for a squash). Recheck homepage, ordered GET, unauthenticated session 401, deep admin route and PDF. No MongoDB rollback is required for frontend-only changes.
+
+## Stage 2 · Studio redesign and contact · November 19, 2026
+
+Branch `portfolio-polish-2026`, parent `5e366be`. Commit subject **Rebuild the public portfolio around a studio workbench and contact panel**.
+
+The owner requested a complete new UI after reviewing Stage 1. Rebuilt the hero, navigation, About, toolkit, records, credentials and contact as one composition. The forest-green contact panel offers copy-to-clipboard, live Mumbai time and direct destinations. Moved the mascot into About to clear footer controls. The original SVG opens in a native workbench dialog. Chose code-first project presentation from [Paco Coursey](https://paco.me), scannable experience from [Brittany Chiang](https://brittanychiang.com) and optional direct interaction from [Bruno Simon](https://bruno-simon.com). No new dependencies. The 108,342-byte WebP is illustrative artwork. Built-in ImageGen prompt: “Editorial product photograph of an imaginary personal engineering workbench for a software engineer's portfolio. Close three-quarter elevated view of a beautiful orange enamel retro-futurist compact CRT computer, broad curved dark glass screen with a single glowing pale aqua pixel cursor on its left, meticulously detailed vented orange casing, detachable tiny ivory mechanical keyboard and black coiled cable resting on a warm bone-white drafting desk. A small orange robot assistant with teal eyes sits next to the computer. Single coherent sculptural industrial design, tactile fine grain, restrained analog electronics. Warm sun from upper left through studio window, crisp geometric shadows on a matte apricot-orange seamless background. Full-bleed square still life, objects large in frame, polished industrial design magazine cover. No typography, no humans, no logos, no overlays, no watermark.”
+
+Build, lint and 35/35 tests passed. Chrome tested both themes at 360, 390, 430, 768, 1024, 1101, 1440 and 1920px, including the marked viewport width. No horizontal overflow or page exceptions. Open, change scene mode, Escape, clipboard feedback and both desktop axe scans passed. Screenshots in `docs/qa/studio`.
+
+Changed paths (including checkpoint documents):
+
+- `docs/qa/studio/contact-1101.png`
+- `docs/qa/studio/contact-390.png`
+- `docs/qa/studio/hero-1440.png`
+- `docs/qa/studio/hero-390.png`
+- `frontend/public/workbench.webp`
+- `frontend/src/studio.css`
+- `frontend/src/App.jsx`
+- `frontend/src/components/About.jsx`
+- `frontend/src/components/Certifications.jsx`
+- `frontend/src/components/Education.jsx`
+- `frontend/src/components/Footer.jsx`
+- `frontend/src/components/Hero.jsx`
+- `frontend/src/components/Icon.jsx`
+- `frontend/src/components/Mentoring.jsx`
+- `frontend/src/components/Navbar.jsx`
+- `frontend/src/components/Skills.jsx`
+- `frontend/src/data/content.js`
+- `frontend/src/index.css`
+- `REDESIGN_LOG.md`
+- `PROJECT_STRUCTURE.md`
+- `CODEX_HANDOFF.md`
+
+Next: Continue with the project gallery, compact project index and technology filtering.

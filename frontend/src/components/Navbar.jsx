@@ -17,9 +17,9 @@ export default function Navbar({ onCommand, theme, onTheme, onMenu }) {
     trigger.current?.focus();
   };
   return <><header className="site-header"><nav className="nav-shell" aria-label="Main navigation">
-    <Link className="wordmark" to="/#home" aria-label="Shivam Sharma home"><span className="wordmark-symbol" aria-hidden="true">s/</span>Shivam<span className="logo-dot">.</span></Link>
+    <Link className="wordmark" to="/#home" aria-label="Shivam Sharma home"><span className="studio-mark" aria-hidden="true">s/s</span><span>Shivam Sharma</span></Link>
     <div className="nav-links">{sections.map(([id, label]) => <Link key={id} to={'/#' + id} aria-current={active === id ? 'location' : undefined}>{label}{active === id && <span className="active-indicator" />}</Link>)}</div>
-    <div className="nav-tools"><a className="nav-cv" href={links.cv} download>Resume<Icon name="down" size={15} /></a><button className="theme-toggle" onClick={onTheme} aria-label={'Switch to ' + (theme === 'dark' ? 'light' : 'dark') + ' theme'}><Icon name={theme === 'dark' ? 'sun' : 'moon'} /></button><button className="command-trigger" onClick={onCommand} aria-label="Open command palette"><kbd>Ctrl K</kbd></button><button className="menu-toggle" ref={trigger} aria-expanded={open} aria-controls="mobile-menu" onClick={() => { setOpen(true); onMenu(true); dialog.current.showModal(); }}>Menu +</button></div>
+    <div className="nav-tools"><a className="nav-cv" href={links.cv} download>Résumé<Icon name="down" size={15} /></a><button className="theme-toggle" onClick={onTheme} aria-label={'Switch to ' + (theme === 'dark' ? 'light' : 'dark') + ' theme'}><Icon name={theme === 'dark' ? 'sun' : 'moon'} /></button><button className="command-trigger" onClick={onCommand} aria-label="Open command palette"><kbd>Ctrl K</kbd></button><button className="menu-toggle" ref={trigger} aria-expanded={open} aria-controls="mobile-menu" onClick={() => { setOpen(true); onMenu(true); dialog.current.showModal(); }}>Menu +</button></div>
   </nav></header>
   <dialog ref={dialog} id="mobile-menu" className="mobile-menu" aria-label="Navigation menu" onCancel={event => { event.preventDefault(); close(); }}>
     <div className="mobile-top"><span>SHIVAM / MENU</span><button onClick={close}>Close ×</button></div>

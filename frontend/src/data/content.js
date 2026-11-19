@@ -1,6 +1,5 @@
 export const profile = {
-  role: 'Software engineer · Full-stack & AI/ML',
-  introduction: 'I build web and mobile applications, from an assistant that answers questions about insurance policies to an indoor navigation app.',
+  introduction: 'I’m Shivam Sharma, a developer in Mumbai building full-stack applications, machine-learning tools and mobile experiences.',
   location: 'Mumbai, India',
 };
 export const sections = [['projects', 'Projects'], ['about', 'About'], ['skills', 'Skills'], ['education', 'Education'], ['mentoring', 'Leadership'], ['contact', 'Contact']];
