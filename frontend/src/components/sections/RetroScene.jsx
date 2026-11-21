@@ -110,11 +110,6 @@ export default function RetroScene() {
           <i />
         </div>
       </div>
-      <div className="scene-tag">
-        <span className="mono">DEVELOPER MODE</span>
-        <span>Always exploring.</span>
-      </div>
-      <span className="scene-coordinate mono">⌘ / A LITTLE CURIOSITY</span>
     </div>
   );
 }

@@ -75,6 +75,10 @@ export default function Hero() {
           <SocialLinks />
         </div>
         <div className="scene-shell" onPointerEnter={activate}>
+          <div className="scene-tag">
+            <span className="mono">Developer Mode</span>
+            <span>Always exploring.</span>
+          </div>
           {interactive ? (
             <Suspense fallback={<StaticScene />}>
               <RetroScene />
@@ -82,6 +86,7 @@ export default function Hero() {
           ) : (
             <StaticScene />
           )}
+          <span className="scene-coordinate mono">⌘ / A LITTLE CURIOSITY</span>
         </div>
       </div>
       <div className="hero-bottom">

@@ -47,19 +47,39 @@ test("home, fixed project order, anchor navigation and console-free rendering", 
   }
   expect(errors).toEqual([]);
 });
-test("mobile uses static scene artwork and desktop reveals the CSS scene on hover", async ({
+test("the scene badge stays fully visible when the desktop artwork changes on hover", async ({
   page,
 }) => {
   await page.setViewportSize({ width: 390, height: 844 });
   await page.goto("/");
   const artwork = page.locator(".static-scene:visible").first();
+  const badge = page.locator(".scene-tag:visible").first();
+  const badgeInsets = () =>
+    badge.evaluate((element) => {
+      const badgeBox = element.getBoundingClientRect();
+      const sceneBox = element.closest(".scene-shell").getBoundingClientRect();
+      return [
+        badgeBox.left - sceneBox.left,
+        badgeBox.top - sceneBox.top,
+        sceneBox.right - badgeBox.right,
+        sceneBox.bottom - badgeBox.bottom,
+      ].map(Math.round);
+    });
   await expect(artwork).toBeVisible();
   await expect(artwork).toHaveJSProperty("naturalWidth", 500);
+  await expect(
+    badge.getByText("Developer Mode", { exact: true }),
+  ).toBeVisible();
+  await page.evaluate(() => document.fonts.ready);
+  expect(Math.min(...(await badgeInsets()))).toBeGreaterThanOrEqual(0);
   await expect(page.locator(".retro-scene:visible")).toHaveCount(0);
   await page.setViewportSize({ width: 1280, height: 900 });
   await expect(artwork).toHaveJSProperty("naturalWidth", 1000);
+  const restingInsets = await badgeInsets();
+  expect(Math.min(...restingInsets)).toBeGreaterThanOrEqual(0);
   await page.locator(".scene-shell:visible").hover();
   await expect(page.locator(".retro-scene:visible")).toBeVisible();
+  expect(await badgeInsets()).toEqual(restingInsets);
 });
 for (const project of projects)
   test("project route: " + project.name, async ({ page }) => {
