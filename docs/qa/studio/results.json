@@ -1,0 +1,64 @@
+{
+  "lighthouse": "13.6.0",
+  "chrome": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/157.0.0.0 Safari/537.36",
+  "url": "http://127.0.0.1:4187/",
+  "mode": "mobile",
+  "throttling": "simulate",
+  "date": "2026-11-21T05:57:01.576Z",
+  "scores": {
+    "performance": 98,
+    "accessibility": 100,
+    "best-practices": 100,
+    "seo": 100
+  },
+  "metrics": {
+    "largest-contentful-paint": "2.4 s",
+    "first-contentful-paint": "0.8 s",
+    "cumulative-layout-shift": "0",
+    "total-blocking-time": "30 ms"
+  },
+  "viewportWidths": [
+    360,
+    390,
+    430,
+    768,
+    1024,
+    1101,
+    1440,
+    1920
+  ],
+  "themes": [
+    "dark",
+    "light"
+  ],
+  "axeDesktopTaggedViolations": {
+    "light": 0,
+    "dark": 0
+  },
+  "unitTests": 36,
+  "adminBrowser": [
+    "1440px mock CRUD passed",
+    "390px mock CRUD passed"
+  ],
+  "precedingRun": {
+    "date": "2026-11-21T05:49:30.479Z",
+    "scores": {
+      "performance": 97,
+      "accessibility": 100,
+      "best-practices": 100,
+      "seo": 100
+    },
+    "metrics": {
+      "largest-contentful-paint": "2.4 s",
+      "first-contentful-paint": "0.8 s",
+      "cumulative-layout-shift": "0",
+      "total-blocking-time": "80 ms"
+    }
+  },
+  "additionalBrowserCoverage": [
+    "Chrome and Microsoft Edge public permalinks, responsive menu, workbench, motion and focus",
+    "Chrome and Microsoft Edge isolated admin CRUD at 390px and 1440px",
+    "320px phone menu and desktop navigation at 1000px",
+    "Five public projects in order, four published repository links returned HTTP 200"
+  ]
+}

@@ -4,6 +4,9 @@ export default function Icon({
   ...props
 }) {
   const paths = {
+    copy: <><rect x="8" y="8" width="12" height="13" rx="2" /><path d="M16 8V3H3v13h5" /></>,
+    database: <><ellipse cx="12" cy="5" rx="8" ry="3" /><path d="M4 5v14c0 4 16 4 16 0V5M4 12c0 4 16 4 16 0" /></>,
+    award: <><circle cx="12" cy="8" r="5" /><path d="m8 12-2 8 6-3 6 3-2-8" /></>,
     plus: <path d="M12 5v14M5 12h14" />,
     search: <><circle cx="10.5" cy="10.5" r="6.5" /><path d="m16 16 5 5" /></>,
     lock: <><rect x="5" y="10" width="14" height="11" rx="2" /><path d="M8 10V7a4 4 0 0 1 8 0v3m-4 5v2" /></>,

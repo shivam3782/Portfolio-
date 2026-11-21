@@ -1,7 +1,14 @@
 import { mentoring } from '../data/content';
-import SectionHeading from './SectionHeading';
-import Surface from './Surface';
-import RevealOnScroll from './RevealOnScroll';
+
 export default function Mentoring() {
-  return <section id="mentoring" className="section"><SectionHeading number="05" title="Learning is better shared" tag="Mentoring & leadership" /><RevealOnScroll><Surface className="mentoring-card"><div><p className="card-tag">COMMUNITY / DEVOPS CLUB</p><h3>DevOps Club Mentor</h3><p>A. P. Shah Institute of Technology</p></div><ul className="terminal-list">{mentoring.map(t => <li key={t}>{t}</li>)}</ul></Surface></RevealOnScroll></section>;
+  return (
+    <section id="mentoring" className="record-panel mentor-record">
+      <h2 className="studio-heading">Leadership</h2>
+      <h3>DevOps Club Mentor</h3>
+      <p>A. P. Shah Institute of Technology</p>
+      <strong className="mentor-count">100<span>+</span></strong>
+      <p>students per Docker, Git and GitHub workshop</p>
+      <ul>{mentoring.slice(1).map(item => <li key={item}>{item}</li>)}</ul>
+    </section>
+  );
 }

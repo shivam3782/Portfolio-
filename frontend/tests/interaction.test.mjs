@@ -21,6 +21,7 @@ const { default: AdminPanel } = await vite.ssrLoadModule('/src/components/AdminP
 const { default: Navbar } = await vite.ssrLoadModule('/src/components/Navbar.jsx');
 const { default: CommandPalette } = await vite.ssrLoadModule('/src/components/CommandPalette.jsx');
 const { default: useTheme } = await vite.ssrLoadModule('/src/hooks/useTheme.js');
+const { default: useSmoothScroll } = await vite.ssrLoadModule('/src/hooks/useSmoothScroll.js');
 const originalFetch = globalThis.fetch;
 let root, router;
 const projects = [
@@ -174,12 +175,28 @@ test('admin login, temporary sorting, edit/cancel and locking work with an isola
 test('theme changes update the root and persist the selected value in isolated storage', async () => {
   function Harness() { const [theme, toggle] = useTheme(); return h('button', { onClick: toggle }, theme); }
   await mount(h(Harness));
-  assert.equal(document.documentElement.dataset.theme, 'dark');
-  await click(button('dark'));
-  assert.equal(document.documentElement.dataset.theme, 'light');
-  assert.equal(localStorage.getItem('portfolio-theme'), 'light');
-  await click(button('light'));
-  assert.equal(localStorage.getItem('portfolio-theme'), 'dark');
+  const initial = window.matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark';
+  const other = initial === 'dark' ? 'light' : 'dark';
+  assert.equal(document.documentElement.dataset.theme, initial);
+  assert.equal(localStorage.getItem('portfolio-theme'), null);
+  await click(button(initial));
+  assert.equal(document.documentElement.dataset.theme, other);
+  assert.equal(localStorage.getItem('portfolio-theme'), other);
+  await click(button(other));
+  assert.equal(localStorage.getItem('portfolio-theme'), initial);
+});
+
+test('a fresh visit leaves keyboard focus alone and an explicit skip link focuses main', async () => {
+  function Page() {
+    useSmoothScroll(false);
+    return h('div', { id: 'root' }, h('main', { id: 'main-content' }, 'Portfolio'));
+  }
+  await mount(null, { path: '/', routes: [{ path: '/', element: h(Page) }] });
+  await new Promise(resolve => setTimeout(resolve, 10));
+  assert.equal(document.activeElement, document.body);
+  await act(async () => router.navigate('/#main-content'));
+  await new Promise(resolve => setTimeout(resolve, 10));
+  assert.equal(document.activeElement, document.getElementById('main-content'));
 });
 
 test('palette search and Enter navigate to Leadership in the isolated router', async () => {
@@ -248,4 +265,19 @@ test('the console can lock even when its project refresh fails', async () => {
   assert.match(document.body.textContent, /reconnect the library/);
   await click(document.querySelector('a[href="/admin/lock"]'));
   assert.ok(document.querySelector('#admin-key'));
+});
+
+test('public index and technology filter preserve the API order and recover from no matches', async () => {
+  const { default: Projects } = await vite.ssrLoadModule('/src/components/Projects.jsx');
+  globalThis.fetch = async () => Response.json(projects);
+  await mount(h(Projects));
+  const titles = () => [...document.querySelectorAll('.project-card h3')].map(node => node.textContent);
+  assert.deepEqual(titles(), projects.map(project => project.name));
+  await click(button('Index'));
+  assert.equal(document.querySelectorAll('.project-art').length, 0);
+  await type(document.querySelector('.tech-select select'), 'Python');
+  assert.deepEqual(titles(), [projects[0].name, projects[1].name]);
+  await type(document.querySelector('#public-project-search'), 'absent record');
+  await click(button('Clear filters'));
+  assert.deepEqual(titles(), projects.map(project => project.name));
 });
