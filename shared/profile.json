@@ -1,0 +1,124 @@
+{
+  "name": "Shivam Sharma",
+  "role": "Software engineer",
+  "tagline": "Full-stack development. AI & ML.",
+  "valueProposition": "I build web and mobile applications, explore machine learning, and turn complex problems into useful software.",
+  "availability": "Open to opportunities",
+  "location": "Mumbai, India",
+  "about": "My work spans full-stack applications, mobile development and machine learning. I enjoy connecting the pieces: an interface people can use, an API that holds it together, and data that makes it useful.",
+  "lookingFor": "Open to software engineering opportunities.",
+  "photoUrl": "",
+  "email": "shivam3782@gmail.com",
+  "githubUrl": "https://github.com/shivam3782",
+  "linkedinUrl": "https://www.linkedin.com/in/shivam-sharma-ba2a4823a/",
+  "resumeUrl": "/Shivam_Sharma_Resume.pdf",
+  "ogImage": "/og-image.png",
+  "stats": [
+    {
+      "value": "7.63/10",
+      "label": "B.E. CGPA"
+    },
+    {
+      "value": "100+",
+      "label": "Students per workshop"
+    },
+    {
+      "value": "2022–2026",
+      "label": "B.E. Information Technology"
+    }
+  ],
+  "aboutCards": [
+    {
+      "title": "Developer",
+      "file": "developer.js",
+      "icon": "code",
+      "text": "Builds full-stack web and mobile apps with React, Node.js, Flask and Flutter."
+    },
+    {
+      "title": "ML Explorer",
+      "file": "experiment.py",
+      "icon": "spark",
+      "text": "Trains and ships ML models behind REST APIs, including a crop-yield predictor with 91% accuracy."
+    },
+    {
+      "title": "Mentor",
+      "file": "community.md",
+      "icon": "people",
+      "text": "DevOps Club mentor who has taught Docker, Git and GitHub to 100+ students per session."
+    }
+  ],
+  "skills": {
+    "Languages": [
+      "Python",
+      "JavaScript",
+      "C++",
+      "HTML",
+      "CSS"
+    ],
+    "Frontend": [
+      "React.js",
+      "Flutter",
+      "Tailwind CSS"
+    ],
+    "Backend": [
+      "Node.js",
+      "Express.js",
+      "Flask",
+      "REST APIs"
+    ],
+    "Databases": [
+      "MongoDB",
+      "MySQL",
+      "Firebase",
+      "SQLite"
+    ],
+    "ML/AI": [
+      "Scikit-learn",
+      "Pandas",
+      "NumPy",
+      "Generative AI",
+      "LLMs"
+    ],
+    "Tools": [
+      "Docker",
+      "Git",
+      "GitHub",
+      "Ubuntu"
+    ],
+    "Tools/DevOps": [
+      "Docker",
+      "Git",
+      "GitHub",
+      "Ubuntu"
+    ],
+    "Testing": [],
+    "Soft skills": []
+  },
+  "education": [
+    {
+      "degree": "B.E. Information Technology",
+      "school": "A. P. Shah Institute of Technology, Mumbai",
+      "years": "2022 – 2026",
+      "result": "CGPA 7.63/10"
+    },
+    {
+      "degree": "HSC Computer Science",
+      "school": "National Education Society’s Jr. College of Arts, Science and Commerce, Mumbai",
+      "years": "2020 – 2022",
+      "result": "75.50%"
+    }
+  ],
+  "certifications": [
+    "Zscaler Zero Trust Associate (ZTCA)",
+    "Google AI-ML Virtual Internship (AICTE)",
+    "AWS Data Engineering Virtual Internship (AICTE)",
+    "Data Analysis with Python (IBM)",
+    "Database Management System (NPTEL, IIT Kharagpur)",
+    "Programming Essentials in C++ (Cisco)"
+  ],
+  "leadership": [
+    "Led hands-on Docker, Git and GitHub workshops for 100+ students per session",
+    "Mentored student teams on Agile workflows and version-control best practices",
+    "Planned and drove technical sessions that grew DevOps adoption across campus"
+  ]
+}
