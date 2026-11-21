@@ -2,10 +2,62 @@
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
   "rewrites": [
-    { "source": "/api/:path*", "destination": "https://portfolio-1-7ymf.onrender.com/api/:path*" },
-    { "source": "/(.*)", "destination": "/index.html" }
+    {
+      "source": "/api/:path*",
+      "destination": "https://portfolio-1-7ymf.onrender.com/api/:path*"
+    },
+    {
+      "source": "/projects/proactive-insurance-policy-guardian",
+      "destination": "/projects/proactive-insurance-policy-guardian/index.html"
+    },
+    {
+      "source": "/projects/the-hangman-game",
+      "destination": "/projects/the-hangman-game/index.html"
+    },
+    {
+      "source": "/projects/krushipal",
+      "destination": "/projects/krushipal/index.html"
+    },
+    {
+      "source": "/projects/cultivateconnect",
+      "destination": "/projects/cultivateconnect/index.html"
+    },
+    {
+      "source": "/projects/arnav",
+      "destination": "/projects/arnav/index.html"
+    },
+    {
+      "source": "/admin/:path*",
+      "destination": "/app.html"
+    }
   ],
   "headers": [
-    { "source": "/api/:path*", "headers": [{ "key": "x-vercel-enable-rewrite-caching", "value": "0" }] }
-  ]
+    {
+      "source": "/api/:path*",
+      "headers": [
+        {
+          "key": "x-vercel-enable-rewrite-caching",
+          "value": "0"
+        }
+      ]
+    },
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        },
+        {
+          "key": "X-Frame-Options",
+          "value": "DENY"
+        }
+      ]
+    }
+  ],
+  "cleanUrls": true
 }

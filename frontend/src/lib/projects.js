@@ -32,5 +32,6 @@ export function validateDraft(form, bounds = { min: 1, max: 10000 }) {
   if (form.tech.length > 40 || form.tech.some(t => !t.trim() || t.length > 60)) errors.tech = 'Use up to 40 technology names, each 1–60 characters.';
   for (const key of ['githubUrl', 'liveUrl', 'imageUrl']) if (form[key].trim() && !safeUrl(form[key].trim())) errors[key] = 'Enter a complete https:// or http:// URL.';
   if (!Number.isInteger(Number(form.position)) || Number(form.position) < bounds.min || Number(form.position) > bounds.max) errors.position = 'Choose a whole-number position from ' + bounds.min + ' to ' + bounds.max + '.';
+  if (form.gallery) { const shots = form.gallery.split('\n').filter(line => line.trim()); if (shots.length > 12 || shots.some(line => { const [url, ...alt] = line.split(' | '); return !safeUrl(url.trim()) || !alt.join(' | ').trim() || alt.join(' | ').length > 240; })) errors.gallery = 'Use up to 12 lines: image URL | descriptive alt text.'; }
   return errors;
 }
