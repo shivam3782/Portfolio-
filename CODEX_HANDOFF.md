@@ -1,7 +1,9 @@
-# Continuation checkpoint
+# Portfolio release handoff
 
-**Stage 6 · SEO, performance and final validation.** Branch `portfolio-polish-2026`, parent `767307a`. Latest checkpoint commit subject **Improve crawl and share metadata and reduce the public entry bundle**. Use `git log -1 --oneline` to resolve the exact HEAD.
+**November 21, 2026 · Stage 7 complete.** The studio redesign is ready for the owner's visual review on `portfolio-polish-2026`. The tested application commit is `354780f4a4b78938c6193600ea2b9676656025a0`. The subsequent release handoff changes three Markdown files. [PR #3](https://github.com/shivam3782/Portfolio-/pull/3) · [Vercel branch preview](https://portfolio-git-portfolio-polish-2026-sam3782s-projects.vercel.app)
 
-Push the tested feature branch, open the PR and verify the Vercel Preview before requesting release approval.
+The preview requires Vercel sign-in. The authenticated preview showed the five live projects in their expected order, from Proactive Insurance Policy Guardian through ARNav. The gallery and filtered index use the same project API. The workbench opens from the hero. [Desktop](docs/qa/studio/hero-1440.png) · [Mobile](docs/qa/studio/hero-390.png) · [Contact at the reported width](docs/qa/studio/contact-1101.png)
 
-See [verified checks and decisions](REDESIGN_LOG.md) and [architecture and inventory](PROJECT_STRUCTURE.md). Production baseline `d78f784`. Keep preview and MongoDB checks read-only. Exercise authenticated CRUD with isolated fixtures. Explicit approval of the final candidate is required before merging or deploying production.
+Lint, the production build, 36 automated tests and the isolated desktop/mobile admin browser flows passed again on November 21. The November 19 evidence includes eight widths in both themes and local simulated-mobile Lighthouse results. [Measurements](docs/qa/studio/results.json) · [Full test and change ledger](REDESIGN_LOG.md) · [Architecture and commands](PROJECT_STRUCTURE.md)
+
+**Next decision:** Obtain explicit owner approval of this preview before merging PR #3. At this checkpoint `main` was `d78f784c09b68340ac7e723c582efd995b737cc9`, and the Ready production deployment was `dpl_4mHPSv4DjyhoPYdy1Pmq6C38z4yP`. On approval, refresh both refs, merge the approved PR, verify the automatic Vercel production deployment and both aliases, check the homepage, project order, admin gate and CV, then record the deployed commit and deployment ID. The release ledger contains restoration steps. Use isolated fixtures for tests that write project data.

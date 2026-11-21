@@ -105,7 +105,7 @@ The Projects section boundary moved from 949 to **740px** at 1440×900 and from 
 
 ## Release and rollback
 
-Branch is local. PR, candidate preview, approval, merge and new deployment are pending. Before release, refresh the known-good SHA and deployment ID in case main advances. Re-run lint/build/tests and the browser suite on the release candidate. Verify the candidate's Vercel target says Preview before sharing.
+At the initial audit the branch was local. Stage 7 below records the published candidate, preview verification and approval checkpoint.
 
 If an approved release fails, restore the preceding verified deployment using the Vercel project's Rollback action and verify both domain aliases resolve to the restored deployment. At baseline that target is `dpl_4mHPSv4DjyhoPYdy1Pmq6C38z4yP` / `d78f784c09b68340ac7e723c582efd995b737cc9`. Reconcile Git through a revert PR for the release merge (`git revert -m 1 <merge-sha>` for a merge commit, ordinary revert for a squash). Recheck homepage, ordered GET, unauthenticated session 401, deep admin route and PDF. No MongoDB rollback is required for frontend-only changes.
 
@@ -259,3 +259,19 @@ Changed paths (including checkpoint documents):
 - `CODEX_HANDOFF.md`
 
 Next: Push the tested feature branch, open the PR and verify the Vercel Preview before requesting release approval.
+
+## Stage 7 · Preview and owner review
+
+Published `portfolio-polish-2026` and opened [PR #3](https://github.com/shivam3782/Portfolio-/pull/3). The tested application commit is `354780f4a4b78938c6193600ea2b9676656025a0`. Stage commits in order are `4023dac` (audit), `5e366be` (hero and navigation), `904d76b` (studio UI), `edf2e89` (project browsing), `93e4db9` (admin), `767307a` (accessibility) and `354780f` (SEO and performance).
+
+Vercel identified the tested deployment as Ready, target Preview, ID `dpl_5BNGLHzM2bGNYQF68TZ79GQWBhFn`. Anonymous visitors receive an HTTP 302 to sign in. In a signed-in browser the hosted gallery showed Proactive Insurance Policy Guardian, The HangMan Game, KrushiPal, CultivateConnect and ARNav in that order. [Tested deployment](https://portfolio-mu82an5ny-sam3782s-projects.vercel.app) · [Branch preview](https://portfolio-git-portfolio-polish-2026-sam3782s-projects.vercel.app)
+
+On November 21 the PR was open against `main` at `d78f784`. The production domain resolved to the Ready baseline deployment `dpl_4mHPSv4DjyhoPYdy1Pmq6C38z4yP`. Frontend lint, production build including emitted-asset checks, all 36 tests and the isolated admin Chrome flows at 1440 and 390 px passed again. The earlier Lighthouse measurements are from the local production build. See [measurements](docs/qa/studio/results.json) and [screenshots](docs/qa/studio/).
+
+| File modified | Reason |
+| --- | --- |
+| `CODEX_HANDOFF.md` | Replaced the pre-push instructions with links, verified release state and the outstanding owner decision. |
+| `PROJECT_STRUCTURE.md` | Recorded the GitHub and Vercel review endpoints alongside the production workflow. |
+| `REDESIGN_LOG.md` | Reconciled the historical local-branch note and recorded commit references, preview checks and rollback target. |
+
+The remaining release step requires explicit owner approval. Before merging, verify the approved source and refresh the rollback target. Following deployment, record the merged SHA and verify both production aliases, the five-project order, CV and admin authentication gate. For recovery, restore the recorded Vercel deployment and revert the release merge through a PR as described above. This release requires no production database writes.

@@ -37,6 +37,8 @@ GitHub main → Vercel project `sam3782s-projects/portfolio`, root `frontend`, V
 
 At audit time Vercel reported production `dpl_4mHPSv4DjyhoPYdy1Pmq6C38z4yP` Ready on both domain aliases. GitHub deployment 7786654366 identifies commit `d78f784c09b68340ac7e723c582efd995b737cc9`. See the [release ledger](REDESIGN_LOG.md) for verification and rollback.
 
+The November 21 release checkpoint verified the same production baseline. PR #3 contains the studio implementation through `354780f`. Vercel maintains an authenticated preview URL for the feature branch. The application, backend routing and deployment configuration are identical between the tested commit and its release handoff. [Pull request](https://github.com/shivam3782/Portfolio-/pull/3) · [Branch preview](https://portfolio-git-portfolio-polish-2026-sam3782s-projects.vercel.app)
+
 ## File tree
 
 Paths are repository relative. Generated dependencies, build output, Git internals and private environment files are omitted. Tracked mode configuration files are listed by name only. An empty local `backend/controllers/` directory has no Git entry. Seven ignored historical root documents exist only in this checkout: `DEPLOYMENT_GUIDE.md`, `PROJECT_ASSETS.md`, `REDESIGN_REVIEW.md`, `REVIEW_GUIDE.md`, `REVIEW_REPORT.md`, `SOURCE_CODE.md`, `VISUAL_QA.md`. They capture the earlier release and its then-blocked browser checks.
