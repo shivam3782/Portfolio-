@@ -128,7 +128,6 @@ select { color: var(--text); background: var(--surface); border: 1px solid var(-
 .mobile-top button { min-height: 44px; }
 .mobile-menu nav { margin: 30px 0; }
 .mobile-menu nav a { display: flex; align-items: center; gap: 20px; padding: 17px 0; font-size: clamp(25px,5vh,38px); border-bottom: 1px solid var(--border); }
-.mobile-menu nav small { font: 10px var(--mono); color: var(--muted); }
 .mobile-menu nav a > span { margin-left: auto; color: var(--accent); }
 .mobile-menu > .button { margin: 10px 10px 0 0; }
 .mascot { position: fixed; right: 28px; bottom: 25px; z-index: 35; display: flex; align-items: center; gap: 10px; }

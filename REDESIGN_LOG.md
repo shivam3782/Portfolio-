@@ -1,5 +1,7 @@
 # Portfolio redesign ledger
 
+**Current checkpoint · November 21.** The revised studio UI is in PR #3 for owner review. Production is at `d78f784`. See the quality pass at the end for the latest checks and file inventory.
+
 ## Stage 0 · November 19, 2026 · Discovery
 
 **Production baseline** `d78f784c09b68340ac7e723c582efd995b737cc9`. Branch `portfolio-polish-2026` started from freshly fetched `origin/main`. Audit commit **4023dac**. Locate it with `git log -1 --format=%H --grep="^Document verified portfolio baseline"`. The ledger uses a history lookup for the commit containing the ledger itself.
@@ -275,3 +277,23 @@ On November 21 the PR was open against `main` at `d78f784`. The production domai
 | `REDESIGN_LOG.md` | Reconciled the historical local-branch note and recorded commit references, preview checks and rollback target. |
 
 The remaining release step requires explicit owner approval. Before merging, verify the approved source and refresh the rollback target. Following deployment, record the merged SHA and verify both production aliases, the five-project order, CV and admin authentication gate. For recovery, restore the recorded Vercel deployment and revert the release merge through a PR as described above. This release requires no production database writes.
+
+## Stage 7 follow-up · Owner-requested acceptance review, November 21
+
+Parent `7b0b92e`, branch `portfolio-polish-2026`, commit subject **Polish recruiter navigation and verify the public review experience**. [PR #3](https://github.com/shivam3782/Portfolio-/pull/3)
+
+| Files | Change and reason |
+| --- | --- |
+| `frontend/vite.config.js`, `frontend/package.json` | Reproduced HTTP 502 on the review port with the local API offline. Added an explicit loopback public preview command serving the anonymous, published project list. Uses a fixed GET endpoint and forwards no browser credentials. Added a repeatable public browser test command. |
+| `frontend/src/components/Hero.jsx`, `frontend/src/data/content.js` | The primary heading now identifies Shivam, followed by his role and two examples from his actual work. Added Certifications to shared navigation. |
+| `frontend/src/components/Navbar.jsx`, `frontend/src/App.css` | Widening an open phone menu left the desktop page covered and scroll locked. Close it at the desktop breakpoint and return focus to the visible brand link. Removed decorative row numbers and their unused style. |
+| `frontend/src/components/ProjectCard.jsx`, `frontend/src/components/Projects.jsx`, `frontend/src/hooks/useSmoothScroll.js`, `frontend/src/components/About.jsx` | Added stable per-record heading links, including on a cold direct visit. Wait for asynchronous project rendering before moving focus. Routed the mentoring link through the same focus and scrolling behavior. |
+| `frontend/src/App.jsx`, `frontend/src/hooks/useReducedMotion.js`, `frontend/src/components/CommandPalette.jsx`, `frontend/src/components/Footer.jsx` | A system-reduced-motion user was offered a misleading pause/resume action. Reflect the system preference and expose the manual control when applicable. Shared navigation supplies a single certification command. |
+| `frontend/src/studio.css` | Grouped contact links beside the email on desktop, preserved mobile wrapping, adjusted header spacing, increased phone menu tap area and locked background scrolling inside the workbench. |
+| `frontend/tests/review.test.mjs`, new `frontend/scripts/test-public-browser.mjs` | Verified menu coverage, honest missing-link rendering, delayed direct links, focus, dialog resizing, motion preferences and workbench scroll locking. |
+| `docs/qa/studio/hero-1440.png`, `hero-390.png`, `contact-1101.png`, `contact-390.png`, `projects.png`, `results.json` | Refreshed the review images and measured results. The marked contact viewport was 1101 × 830. |
+| `CODEX_HANDOFF.md`, `PROJECT_STRUCTURE.md`, `REDESIGN_LOG.md` | Updated release state, execution commands, tracked tree, verification and remaining limits. |
+
+**Verified.** Production build and emitted-asset guard passed. Entry JavaScript was 105.16 kB gzip. ESLint and all 36 automated tests passed. Both public and admin browser suites passed in installed Chrome and Edge, including isolated create, validation, edit, reauthentication, placement and delete. Additional Chrome checks covered eight widths in both themes, the 320px menu and 1000px desktop breakpoint, keyboard skip/navigation, mascot and keyboard sequence, command search, clipboard contents, modal focus, reduced motion, CV download, share metadata, error recovery, and project loading, slow service, retry and empty results. Two desktop axe scans reported zero tagged violations. The five live titles retained their API order and all four supplied source repositories returned HTTP 200. Unauthenticated production session GET returned 401. The local public review list returned 200 and its session endpoint returned 403.
+
+**Lab result.** The final local simulated-mobile Lighthouse run scored 98 Performance, 100 Accessibility, 100 Best Practices and 100 SEO. LCP was 2.41 s, TBT 31 ms and CLS 0. The preceding run scored 97 Performance with the other three scores at 100; both runs are recorded in the measurements file. LinkedIn returned 999 to automated requests. Browser viewport testing used emulation. Physical-device and screen-reader walkthroughs remain unverified. The API supplies no live demos and no repository URL for ARNav. Production MongoDB received zero test writes. Owner approval of the revised preview is pending. The Stage 7 rollback target and procedure above still apply.

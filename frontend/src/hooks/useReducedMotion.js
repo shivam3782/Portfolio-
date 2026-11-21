@@ -13,6 +13,9 @@ function subscribe(listener) {
   };
 }
 const snapshot = () => query.matches || paused;
+export function useSystemReducedMotion() {
+  return useSyncExternalStore(subscribe, () => query.matches, () => false);
+}
 export function toggleMotion() {
   paused = !paused;
   document.documentElement.dataset.motion = paused ? 'paused' : 'auto';

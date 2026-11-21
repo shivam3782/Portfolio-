@@ -1,6 +1,6 @@
 # Portfolio architecture and file inventory
 
-Verified November 19, 2026 against the release candidate on portfolio-polish-2026 and its built frontend. The three root handoff documents are maintained together.
+Verified November 21, 2026 against the release candidate on `portfolio-polish-2026` and its built frontend. The three root handoff documents are maintained together.
 
 ## Run locally
 
@@ -18,12 +18,14 @@ npm run preview
 
 Vite dev and preview default to localhost port 5173. Use `npm run dev` for source edits. For interactive admin work use an isolated database: from `backend`, configure a disposable local MongoDB connection and a local test key, then `npm run dev` (or `npm start`). Only start the service after checking which database the environment selects. The default local frontend proxy targets port 3000. The automated CRUD suite uses an in-memory stand-in and needs no running database. For a read-only public baseline the audit used the built frontend, a loopback-only port and the public Render upstream. Logged-in production CRUD is outside this review.
 
-For the signed-in browser suite, run `npm run preview -- --host 127.0.0.1 --port 4187` and, in another frontend terminal, `npm run test:admin-browser`. Installed Chrome is used by default, and all backend responses are isolated fixtures.
+For a public design review, build the frontend and run `npm run preview:public` from `frontend/`. Open `http://127.0.0.1:4187/`. This mode fetches the published project list anonymously. Other API routes and methods return 403 locally. The ordinary dev/preview commands still support a local backend for interactive editing.
+
+With the preview open, run `npm run test:public-browser` and `npm run test:admin-browser` in another frontend terminal. Both suites intercept API traffic with isolated fixtures. Installed Chrome is the default. Set `QA_BROWSER=msedge` for Edge.
 
 ## Runtime and content
 
 - `main.jsx` mounts React StrictMode. `App.jsx` creates the browser router and composes the public shell. Homepage order is Hero, Projects, About, Skills, Education and Mentoring, Certifications, then Contact/Footer. The original interactive workstation opens from the hero in a native dialog on every screen size. Static facts and links come from `data/content.js`. Project records come from the API.
-- Public anchors are `#home`, `#projects`, `#about`, `#skills`, `#education`, `#mentoring`, `#proof` and `#contact`. Skip links target `#main-content`. Unknown paths render a client-side 404 after the SPA rewrite.
+- Public anchors are `#home`, `#projects`, `#about`, `#skills`, `#education`, `#mentoring`, `#proof` and `#contact`. Project headings link to `/#project-<record ID>`; a direct visit waits for the API response before focusing the card. Skip links target `#main-content`. Unknown paths render a client-side 404 after the SPA rewrite.
 - The shell lazy-loads the command palette and admin bundle. Admin routes are `/admin`, `/admin/projects`, `/admin/projects/new`, `/admin/projects/:id/edit` and `/admin/lock`. Unauthenticated deep links render the access form. An unknown authenticated admin route has its own recovery link.
 - HTML selects a theme before React starts. CSS variables define both palettes and feed Tailwind v4. Manrope is self-hosted with its OFL license. Metadata uses system monospace. `App.css` owns public layout, controls and responsive rules. Admin CSS ships separately. Studio layout is in `studio.css`. A CSS route transition and browser-native scroll indicator respect motion preferences. Scrolling uses browser APIs.
 - A project request goes from `lib/api.js` through same-origin `/api` to Render, then Express and Mongoose. Deployment and local proxies are configured separately. Only the backend reads MongoDB credentials. `GET /api/projects` returns ordered records; `GET /api/projects/:id` returns the stored document. `GET /api/projects/session` checks the key. `POST /api/projects`, `PUT /api/projects/:id` and `DELETE /api/projects/:id` require the `x-admin-key` header. List errors use 503, invalid fields/identifiers use 400, missing items use 404 and rejected keys use 401. API responses specify no-store.
@@ -37,7 +39,7 @@ GitHub main → Vercel project `sam3782s-projects/portfolio`, root `frontend`, V
 
 At audit time Vercel reported production `dpl_4mHPSv4DjyhoPYdy1Pmq6C38z4yP` Ready on both domain aliases. GitHub deployment 7786654366 identifies commit `d78f784c09b68340ac7e723c582efd995b737cc9`. See the [release ledger](REDESIGN_LOG.md) for verification and rollback.
 
-The November 21 release checkpoint verified the same production baseline. PR #3 contains the studio implementation through `354780f`. Vercel maintains an authenticated preview URL for the feature branch. The application, backend routing and deployment configuration are identical between the tested commit and its release handoff. [Pull request](https://github.com/shivam3782/Portfolio-/pull/3) · [Branch preview](https://portfolio-git-portfolio-polish-2026-sam3782s-projects.vercel.app)
+The November 21 release checkpoint verified the same production baseline. PR #3 carries the studio redesign and the subsequent owner-requested quality pass. Vercel publishes an authenticated preview for this branch. [Pull request](https://github.com/shivam3782/Portfolio-/pull/3) · [Branch preview](https://portfolio-git-portfolio-polish-2026-sam3782s-projects.vercel.app)
 
 ## File tree
 
@@ -115,6 +117,7 @@ Paths are repository relative. Generated dependencies, build output, Git interna
     │   └── workbench.webp  — Original compressed hero artwork, also used in sign-in
     ├── scripts/
     │   ├── test-admin-browser.mjs  — Local-only Chrome suite for authentication, drafts, placement and CRUD
+    │   ├── test-public-browser.mjs  — Isolated browser checks for project permalinks, navigation, dialogs and motion
     │   ├── verify-build-config.mjs  — Checks output for loopback endpoints and supplied secret values
     │   └── verify-live.mjs  — Historical localhost smoke harness with SSR, HTTP and real-list assumptions
     ├── src/
@@ -165,7 +168,7 @@ Paths are repository relative. Generated dependencies, build output, Git interna
     │   ├── interaction.test.mjs  — 18 isolated interaction, navigation and project tests
     │   └── review.test.mjs  — 14 API, Express, ordering, rendering, contrast and asset tests
     ├── vercel.json  — Build output, ordered API/SPA rewrites and response header
-    └── vite.config.js  — React and Tailwind plugins, API origin guard and local proxies
+    └── vite.config.js  — React and Tailwind plugins, API origin guard, local backend proxy and read-only public review mode
 ```
 
 ### Stage 6 update

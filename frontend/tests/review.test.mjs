@@ -127,7 +127,7 @@ test('project presentation preserves API content, hides unavailable links and la
   for (const value of ['ARNav', 'CONCEPT ILLUSTRATION', 'Flutter', 'Firebase', 'Additional engineering detail from the API.']) assert.ok(html.includes(value));
   assert.ok(html.includes('<details'));
   assert.ok(!html.includes('coming soon'));
-  assert.ok(!html.includes('<a '));
+  assert.deepEqual([...html.matchAll(/<a href="([^"]+)"/g)].map(match => match[1]), ['/#project-fixture']);
   const preview = renderToStaticMarkup(createElement(ProjectCard, { project: { ...fixture, imageUrl: 'https://example.com/real-preview.png', githubUrl: 'https://github.com/example/project' }, index: 1 }));
   assert.ok(preview.includes('src="https://example.com/real-preview.png"'));
   assert.ok(preview.includes('href="https://github.com/example/project"'));
@@ -236,15 +236,17 @@ test('server validation rejects malformed URLs and restricts writes to supported
   assert.equal(valid.data.$set, undefined);
 });
 
-test('Leadership is available to desktop/mobile navigation and the command palette', async () => {
+test('Leadership and Certifications are available in both menus and the command palette', async () => {
   const { sections } = await vite.ssrLoadModule('/src/data/content.js');
-  assert.deepEqual(sections.map(p => p[1]), ['Projects', 'About', 'Skills', 'Education', 'Leadership', 'Contact']);
+  assert.deepEqual(sections.map(p => p[1]), ['Projects', 'About', 'Skills', 'Education', 'Leadership', 'Certifications', 'Contact']);
   const { default: Navbar } = await vite.ssrLoadModule('/src/components/Navbar.jsx');
   const { default: CommandPalette } = await vite.ssrLoadModule('/src/components/CommandPalette.jsx');
   const nav = renderToStaticMarkup(createElement(MemoryRouter, null, createElement(Navbar, { theme: 'dark', onCommand() {}, onTheme() {}, onMenu() {} })));
   assert.equal((nav.match(/href="\/#mentoring"/g) || []).length, 2);
   const palette = renderToStaticMarkup(createElement(MemoryRouter, null, createElement(CommandPalette, { open: false, onClose() {}, onTheme() {}, onMotion() {}, motionPaused: false })));
   assert.ok(palette.includes('Go to Leadership'));
+  assert.equal((nav.match(/href="\/#proof"/g) || []).length, 2);
+  assert.equal((palette.match(/Go to Certifications/g) || []).length, 1);
 });
 
 test('dedicated editor renders supported fields, pinned placement and concept preview without fake upload controls', async () => {

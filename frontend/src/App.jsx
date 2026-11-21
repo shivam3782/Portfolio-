@@ -13,7 +13,7 @@ import About from './components/About';
 import useKonami from './hooks/useKonami';
 import useSmoothScroll from './hooks/useSmoothScroll';
 import useTheme from './hooks/useTheme';
-import { toggleMotion, useMotionPaused } from './hooks/useReducedMotion';
+import { toggleMotion, useMotionPaused, useSystemReducedMotion } from './hooks/useReducedMotion';
 import './App.css';
 import './studio.css';
 
@@ -35,6 +35,7 @@ function Shell() {
   const [menu, setMenu] = useState(false);
   const [theme, toggleTheme] = useTheme();
   const motionPaused = useMotionPaused();
+  const systemReduced = useSystemReducedMotion();
   const close = useCallback(() => setCommand(false), []);
   const open = useCallback(() => setCommand(true), []);
   const activated = useKonami();
@@ -80,7 +81,7 @@ function Shell() {
       </div>
       {!admin && <Footer />}
       {command && <Suspense fallback={<div className="cheat-toast" role="status">Opening commands…</div>}>
-        <CommandPalette open={command} onClose={close} onTheme={toggleTheme} onMotion={toggleMotion} motionPaused={motionPaused} />
+        <CommandPalette open={command} onClose={close} onTheme={toggleTheme} onMotion={systemReduced ? undefined : toggleMotion} motionPaused={motionPaused} />
       </Suspense>}
       {activated && <div className="cheat-toast" role="status">CHEAT CODE ACTIVATED</div>}
     </div>

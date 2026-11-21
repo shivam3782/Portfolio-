@@ -36,7 +36,7 @@ export default function Projects() {
   function clearFilters() { setQuery(''); setTechnology(''); }
 
   return (
-    <section id="projects" className="studio-section projects-section" aria-labelledby="work-title">
+    <section id="projects" className="studio-section projects-section" aria-labelledby="work-title" aria-busy={status === 'loading' || status === 'slow'}>
       <div className="work-heading">
         <h2 id="work-title" className="studio-heading">Selected <em>work.</em></h2>
         {status === 'ready' && projects.length > 0 && <div className="view-switch" role="group" aria-label="Project display">

@@ -24,9 +24,12 @@ export default function useSmoothScroll(paused) {
       if (!main || main.getAttribute('aria-busy') === 'true') return;
       let id;
       try { id = decodeURIComponent(location.hash.slice(1)); } catch { id = ''; }
-      const target = document.getElementById(id) || main;
+      const projectList = document.getElementById('projects');
+      const projectLink = id.startsWith('project-') && projectList;
+      const anchor = document.getElementById(id);
+      if (!anchor && projectLink && projectList.getAttribute('aria-busy') === 'true') return;
+      const target = anchor || (projectLink ? projectList : main);
       observer.disconnect();
-      clearTimeout(timeout);
       frame = requestAnimationFrame(() => {
         const top = id ? target.getBoundingClientRect().top + window.scrollY - 100 : 0;
         scrollToTarget(top, Boolean(id));
@@ -36,8 +39,7 @@ export default function useSmoothScroll(paused) {
     };
     const observer = new MutationObserver(navigate);
     observer.observe(document.getElementById('root'), { childList: true, subtree: true });
-    const timeout = setTimeout(() => observer.disconnect(), 10000);
     navigate();
-    return () => { observer.disconnect(); clearTimeout(timeout); cancelAnimationFrame(frame); };
+    return () => { observer.disconnect(); cancelAnimationFrame(frame); };
   }, [location, navigationType]);
 }

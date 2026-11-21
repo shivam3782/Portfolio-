@@ -23,7 +23,7 @@ export default function CommandPalette({
       previous?.focus();
     };
   }, [open]);
-  const commands = [{ label: motionPaused ? 'Resume animations' : 'Pause animations', action: onMotion }, {
+  const commands = [...(onMotion ? [{ label: motionPaused ? 'Resume animations' : 'Pause animations', action: onMotion }] : []), {
     label: 'Toggle color theme',
     action: onTheme
   }, {
@@ -33,9 +33,6 @@ export default function CommandPalette({
     label: `Go to ${label}`,
     section: id
   })), {
-    label: 'Go to Certifications',
-    section: 'proof'
-  }, {
     label: 'Download CV',
     href: links.cv,
     download: true

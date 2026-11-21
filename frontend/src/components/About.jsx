@@ -1,5 +1,6 @@
 import { profile } from '../data/content';
 import Mascot from './Mascot';
+import { Link } from 'react-router-dom';
 
 export default function About({ onCommand }) {
   return (
@@ -12,7 +13,7 @@ export default function About({ onCommand }) {
       <div className="profile-text">
         <p>I’m Shivam, an information technology graduate who likes working on both sides of an interface.</p>
         <p>My projects range from a marketplace connecting farmers and consumers to a machine-learning assistant for insurance documents. I work with React and Flutter on the interface, and Node.js, Flask and Python behind it.</p>
-        <a className="studio-text-link" href="#mentoring">My work as a mentor <span aria-hidden="true">↓</span></a>
+        <Link className="studio-text-link" to="/#mentoring">My work as a mentor <span aria-hidden="true">↓</span></Link>
       </div>
     </section>
   );

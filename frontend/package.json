@@ -8,7 +8,9 @@
     "build": "vite build && node scripts/verify-build-config.mjs",
     "lint": "eslint .",
     "preview": "vite preview",
+    "preview:public": "vite preview --mode public-review --host 127.0.0.1 --port 4187",
     "test:admin-browser": "node scripts/test-admin-browser.mjs",
+    "test:public-browser": "node scripts/test-public-browser.mjs",
     "test": "node --test tests/*.test.mjs"
   },
   "dependencies": {

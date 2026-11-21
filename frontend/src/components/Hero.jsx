@@ -10,7 +10,7 @@ export default function Hero() {
     <section id="home" className="studio-hero" aria-labelledby="hero-title">
       <div className="studio-intro">
         <p className="studio-status"><i aria-hidden="true" />Open to opportunities</p>
-        <h1 id="hero-title">Software<br /><em>engineer.</em></h1>
+        <h1 id="hero-title">Shivam <br /><em>Sharma.</em></h1>
         <p className="studio-bio">{profile.introduction}</p>
         <div className="studio-actions">
           <Link className="studio-button solid" to="/#projects">View projects <Icon name="arrow" size={17} /></Link>
