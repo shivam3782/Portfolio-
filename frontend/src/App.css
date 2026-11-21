@@ -276,12 +276,13 @@ a:hover {
   perspective: 1100px;
   isolation: isolate;
 }
-.scene-placeholder {
-  aspect-ratio: 1;
-  display: grid;
-  place-items: center;
-  font: 100px var(--mono);
-  color: var(--accent);
+.scene-shell {
+  min-width: 0;
+}
+.static-scene {
+  display: block;
+  width: 100%;
+  height: auto;
 }
 .scene-grid {
   position: absolute;
@@ -1702,8 +1703,9 @@ textarea {
     padding: 13px 16px;
     font-size: 14px;
   }
-  .retro-scene {
-    max-width: 430px;
+  .scene-shell {
+    width: 100%;
+    max-width: 220px;
     margin: 10px auto 20px;
   }
   .scene-machine {

@@ -12,7 +12,7 @@ try {
         reducedMotion: "reduce",
       });
       await page.goto("http://localhost:5173");
-      await page.waitForSelector(".retro-scene");
+      await page.waitForSelector(".static-scene");
       await page.evaluate(() => document.fonts.ready);
       await page.screenshot({
         path: `artifacts/responsive/${theme}-${width}.png`,

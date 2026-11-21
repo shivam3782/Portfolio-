@@ -1,11 +1,47 @@
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { useContent } from "../lib/content";
 import ResumeLink from "./ui/ResumeLink";
 import SocialLinks from "./SocialLinks";
 const RetroScene = lazy(() => import("./sections/RetroScene"));
+function StaticScene() {
+  return (
+    <picture>
+      <source media="(max-width: 767px)" srcSet="/scene-mobile-dark.webp" />
+      <img
+        className="static-scene"
+        src="/scene-desktop-dark.webp"
+        width="1000"
+        height="1000"
+        fetchPriority="high"
+        alt="An isometric retro computer displaying a pixel mountain landscape and Ready to build"
+      />
+    </picture>
+  );
+}
 export default function Hero() {
   const { profile } = useContent();
+  const [interactive, setInteractive] = useState(false);
+  useEffect(() => {
+    const smallScreen = matchMedia("(max-width: 767px)");
+    const reset = () => {
+      if (smallScreen.matches) setInteractive(false);
+    };
+    smallScreen.addEventListener("change", reset);
+    return () => smallScreen.removeEventListener("change", reset);
+  }, []);
+  const activate = (event) => {
+    if (
+      event.pointerType !== "mouse" ||
+      matchMedia("(max-width: 767px), (prefers-reduced-motion: reduce)")
+        .matches ||
+      navigator.connection?.saveData ||
+      (navigator.hardwareConcurrency && navigator.hardwareConcurrency < 4) ||
+      document.documentElement.dataset.effects === "off"
+    )
+      return;
+    setInteractive(true);
+  };
   return (
     <section id="home" className="hero" aria-labelledby="hero-title">
       <div className="hero-topline">
@@ -38,15 +74,15 @@ export default function Hero() {
           </div>
           <SocialLinks />
         </div>
-        <Suspense
-          fallback={
-            <div className="scene-placeholder" aria-hidden="true">
-              s/
-            </div>
-          }
-        >
-          <RetroScene />
-        </Suspense>
+        <div className="scene-shell" onPointerEnter={activate}>
+          {interactive ? (
+            <Suspense fallback={<StaticScene />}>
+              <RetroScene />
+            </Suspense>
+          ) : (
+            <StaticScene />
+          )}
+        </div>
       </div>
       <div className="hero-bottom">
         <span className="mono">

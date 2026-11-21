@@ -1,6 +1,6 @@
 # Shivam Sharma portfolio
 
-Retro 3D inspired React/Vite portfolio with an Express/MongoDB content API and private admin CMS. The public home, five project pages and 404 are server-rendered at build time and hydrate in the browser. The CSS perspective scene has no WebGL dependency.
+Retro 3D inspired React/Vite portfolio with an Express/MongoDB content API and private admin CMS. The public home, five project pages and 404 are server-rendered at build time and hydrate in the browser. A static scene appears immediately; desktop mouse interaction loads a CSS perspective version with no WebGL dependency.
 
 ## Run locally
 

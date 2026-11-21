@@ -47,6 +47,20 @@ test("home, fixed project order, anchor navigation and console-free rendering", 
   }
   expect(errors).toEqual([]);
 });
+test("mobile uses static scene artwork and desktop reveals the CSS scene on hover", async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 390, height: 844 });
+  await page.goto("/");
+  const artwork = page.locator(".static-scene:visible").first();
+  await expect(artwork).toBeVisible();
+  await expect(artwork).toHaveJSProperty("naturalWidth", 500);
+  await expect(page.locator(".retro-scene:visible")).toHaveCount(0);
+  await page.setViewportSize({ width: 1280, height: 900 });
+  await expect(artwork).toHaveJSProperty("naturalWidth", 1000);
+  await page.locator(".scene-shell:visible").hover();
+  await expect(page.locator(".retro-scene:visible")).toBeVisible();
+});
 for (const project of projects)
   test("project route: " + project.name, async ({ page }) => {
     await page.goto("/projects/" + slug(project));

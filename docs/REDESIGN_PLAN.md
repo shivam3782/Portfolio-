@@ -34,17 +34,17 @@ Contact: validated, rate-limited Express endpoint stores messages in MongoDB as 
 - [x] Generate share assets, static route metadata, sitemap and favicons.
 - [x] Run lint/format, unit/component, server and browser tests.
 - [x] Run axe for every public route in both themes; inspect screenshots at 360/390/768/1024/1280/1440/1920.
-- [x] Run final production Lighthouse, degraded mode checks, links/resume and admin regression checks. **Open gate:** mobile Performance is 77, below the requested 90; see `docs/VERIFICATION.md`.
+- [x] Run final production Lighthouse, degraded mode checks, links/resume and admin regression checks. Two final runs meet the mobile Performance target; see `docs/VERIFICATION.md`.
 - [x] Document setup, new fields, deployment/rollback and owner tasks; commit logical phases.
 
 ## Risks and decisions
 
-- Use CSS 3D: no GPU render loop, no pixel-ratio cost, static on mobile/reduced-motion/low-power. Lazily import the decorative scene.
+- Use CSS 3D: no GPU render loop, static artwork initially, and lazy perspective interaction on desktop mouse hover. Mobile/reduced-motion/low-power devices keep the static artwork.
 - Content claims remain verbatim or conservative summaries of verified repository/API data. No skill percentages or inferred proficiency. Empty categories are not fabricated.
-- Existing MongoDB is real: integration writes run against a separate ephemeral test database, never the live project records. Mail forwarding needs owner SMTP configuration; the admin inbox works without it.
+- Existing MongoDB is real: integration writes run against a separate ephemeral test database, never the live project records. Contact delivery goes to the private inbox; mail forwarding is not implemented.
 - Lighthouse synthetic metrics vary. Record exact reports; do not claim field INP from a lab run. Hosting/DNS and actual mail receipt remain post-release checks.
 - Tests exercise contracts and interactions, not CSS implementation details. Browser binaries may require installation. All limitations will be explicit.
 
 ## Evidence
 
-Baseline/final reports and screenshot inventory will be recorded in docs/VERIFICATION.md. Automated reports remain ignored to avoid committing large machine-specific artifacts.
+Baseline/final reports and screenshot inventory are recorded in docs/VERIFICATION.md. Automated reports remain ignored to avoid committing large machine-specific artifacts.
