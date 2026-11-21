@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node index.js",
     "dev": "node --watch index.js",
-    "test": "node --test tests/*.test.cjs"
+    "test": "node --test tests/*.test.cjs",
+    "lint": "node ../frontend/node_modules/eslint/bin/eslint.js ."
   },
   "keywords": [],
   "author": "",

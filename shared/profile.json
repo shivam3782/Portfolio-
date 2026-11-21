@@ -23,7 +23,7 @@
       "label": "Students per workshop"
     },
     {
-      "value": "2022–2026",
+      "value": "2022â€“2026",
       "label": "B.E. Information Technology"
     }
   ],
@@ -48,49 +48,12 @@
     }
   ],
   "skills": {
-    "Languages": [
-      "Python",
-      "JavaScript",
-      "C++",
-      "HTML",
-      "CSS"
-    ],
-    "Frontend": [
-      "React.js",
-      "Flutter",
-      "Tailwind CSS"
-    ],
-    "Backend": [
-      "Node.js",
-      "Express.js",
-      "Flask",
-      "REST APIs"
-    ],
-    "Databases": [
-      "MongoDB",
-      "MySQL",
-      "Firebase",
-      "SQLite"
-    ],
-    "ML/AI": [
-      "Scikit-learn",
-      "Pandas",
-      "NumPy",
-      "Generative AI",
-      "LLMs"
-    ],
-    "Tools": [
-      "Docker",
-      "Git",
-      "GitHub",
-      "Ubuntu"
-    ],
-    "Tools/DevOps": [
-      "Docker",
-      "Git",
-      "GitHub",
-      "Ubuntu"
-    ],
+    "Languages": ["Python", "JavaScript", "C++", "HTML", "CSS"],
+    "Frontend": ["React.js", "Flutter", "Tailwind CSS"],
+    "Backend": ["Node.js", "Express.js", "Flask", "REST APIs"],
+    "Databases": ["MongoDB", "MySQL", "Firebase", "SQLite"],
+    "ML/AI": ["Scikit-learn", "Pandas", "NumPy", "Generative AI", "LLMs"],
+    "Tools/DevOps": ["Docker", "Git", "GitHub", "Ubuntu"],
     "Testing": [],
     "Soft skills": []
   },
@@ -98,13 +61,13 @@
     {
       "degree": "B.E. Information Technology",
       "school": "A. P. Shah Institute of Technology, Mumbai",
-      "years": "2022 – 2026",
+      "years": "2022 â€“ 2026",
       "result": "CGPA 7.63/10"
     },
     {
       "degree": "HSC Computer Science",
-      "school": "National Education Society’s Jr. College of Arts, Science and Commerce, Mumbai",
-      "years": "2020 – 2022",
+      "school": "National Education Societyâ€™s Jr. College of Arts, Science and Commerce, Mumbai",
+      "years": "2020 â€“ 2022",
       "result": "75.50%"
     }
   ],
