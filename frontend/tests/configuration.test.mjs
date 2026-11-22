@@ -62,7 +62,12 @@ test("Vite production env and API-first rewrite are safe despite generic local e
   );
   assert.equal(config.outputDirectory, "dist");
   assert.ok(config.rewrites.every((rule) => !rule.source.startsWith("/api/")));
-  assert.equal(config.rewrites.at(-1).destination, "/app.html");
+  for (const source of ["/admin", "/admin/:path*"]) {
+    assert.equal(
+      config.rewrites.find((rule) => rule.source === source)?.destination,
+      "/app",
+    );
+  }
 });
 
 test("backend honors hosting ports and exact CORS origins without a production wildcard", () => {
