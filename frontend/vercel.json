@@ -23,8 +23,12 @@
       "destination": "/projects/arnav/index.html"
     },
     {
+      "source": "/admin",
+      "destination": "/app"
+    },
+    {
       "source": "/admin/:path*",
-      "destination": "/app.html"
+      "destination": "/app"
     }
   ],
   "headers": [
