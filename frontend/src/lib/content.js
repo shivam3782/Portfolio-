@@ -1,5 +1,5 @@
 import { createContext, useContext } from "react";
-import profile from "../../../shared/profile.json";
+import profile from "../data/profile.json";
 import snapshot from "../data/projects.snapshot.json";
 export const projectOrder = [
   "Proactive Insurance Policy Guardian",

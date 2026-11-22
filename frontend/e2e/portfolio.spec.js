@@ -2,7 +2,7 @@ import { test, expect } from "@playwright/test";
 import AxeBuilder from "@axe-core/playwright";
 import { readFileSync } from "node:fs";
 const profile = JSON.parse(
-  readFileSync(new URL("../../shared/profile.json", import.meta.url)),
+  readFileSync(new URL("../src/data/profile.json", import.meta.url)),
 );
 const projects = JSON.parse(
   readFileSync(new URL("../src/data/projects.snapshot.json", import.meta.url)),

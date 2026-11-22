@@ -9,7 +9,7 @@ const origin = (env.VITE_SITE_URL || "https://www.shivam-sharma.me").replace(
   /\/$/,
   "",
 );
-let profile = JSON.parse(await readFile("../shared/profile.json", "utf8"));
+let profile = JSON.parse(await readFile("src/data/profile.json", "utf8"));
 let projects = JSON.parse(
   await readFile("src/data/projects.snapshot.json", "utf8"),
 );

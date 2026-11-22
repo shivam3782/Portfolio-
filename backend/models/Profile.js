@@ -1,5 +1,5 @@
 const mongoose = require("mongoose");
-const defaults = require("../../shared/profile.json");
+const defaults = require("../data/profile.json");
 // Mixed is limited to the nested display content validated by profileValidation.
 const schema = new mongoose.Schema(
   {

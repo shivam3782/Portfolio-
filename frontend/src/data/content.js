@@ -1,4 +1,4 @@
-import profile from "../../../shared/profile.json";
+import profile from "./profile.json";
 export const sections = [
   ["about", "About"],
   ["projects", "Projects"],

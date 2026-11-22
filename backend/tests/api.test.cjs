@@ -4,7 +4,7 @@ const mongoose = require("mongoose");
 const { MongoMemoryServer } = require("mongodb-memory-server");
 const request = require("supertest");
 const { createApp } = require("../app");
-const defaults = require("../../shared/profile.json");
+const defaults = require("../data/profile.json");
 const Message = require("../models/Message");
 let mongo, app;
 before(async () => {

@@ -12,8 +12,8 @@
     "test:legacy": "node --test tests/*.test.mjs",
     "test:unit": "vitest run",
     "test:e2e": "playwright test",
-    "format": "prettier --write src scripts tests e2e *.js *.json ../backend ../shared ../docs ../README.md",
-    "format:check": "prettier --check src scripts tests e2e *.js *.json ../backend ../shared ../docs ../README.md",
+    "format": "prettier --write src scripts tests e2e *.js *.json ../backend ../docs ../README.md",
+    "format:check": "prettier --check src scripts tests e2e *.js *.json ../backend ../docs ../README.md",
     "lighthouse": "node scripts/lighthouse.mjs"
   },
   "dependencies": {

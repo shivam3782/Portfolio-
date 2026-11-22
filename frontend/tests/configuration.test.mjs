@@ -12,6 +12,15 @@ const require = createRequire(
 );
 const { serverConfig } = require("./lib/serverConfig");
 
+test("independently deployed frontend and backend bundle identical profile defaults", () => {
+  const profileAt = (path) =>
+    JSON.parse(readFileSync(new URL(path, import.meta.url), "utf8"));
+  assert.deepEqual(
+    profileAt("../src/data/profile.json"),
+    profileAt("../../backend/data/profile.json"),
+  );
+});
+
 test("API configuration supports same-origin and separate HTTPS backends", () => {
   assert.equal(resolveApiOrigin("", true), "");
   assert.equal(resolveApiOrigin("/", true), "");

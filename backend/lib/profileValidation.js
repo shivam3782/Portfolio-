@@ -1,4 +1,4 @@
-const defaults = require("../../shared/profile.json");
+const defaults = require("../data/profile.json");
 function validUrl(value, local = false) {
   if (local && /^\/(?!\/)[\w/.-]+$/.test(value)) return true;
   try {
