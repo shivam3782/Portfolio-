@@ -20,6 +20,8 @@ The contact form saves messages in MongoDB, visible in the authenticated admin i
 
 ## Deploy and rollback
 
+Vercel branch previews without `VITE_API_URL` load the public profile and projects through the project's production domain. The preview proxy accepts only those two GET requests.
+
 The frontend `vercel.json` serves prerendered project files. Set `VITE_API_URL` to the public HTTPS backend origin on hosts without a same-origin API proxy. Set `VITE_SITE_URL`, optionally `VITE_API_URL` or `SNAPSHOT_API_URL`, and configure backend `MONGO_URI`, `ADMIN_KEY`, `CORS_ORIGINS`, `NODE_ENV=production`, optional `TRUST_PROXY_HOPS` and analytics flags. Build command: `npm ci && npm run build` in `frontend`; backend start: `npm ci && npm start` in `backend`. Verify home, all five project URLs, `/404`, `/admin`, contact delivery/inbox, resume PDF, sitemap, robots and social preview after release. Roll back by redeploying the previous frontend build and backend revision; the MongoDB changes are additive and older code ignores new fields. No database migration or destructive transform is required. Do not publish until the owner requests deployment.
 
 See [redesign plan](docs/REDESIGN_PLAN.md), [change log](docs/CHANGELOG-REDESIGN.md), and [verification](docs/VERIFICATION.md).
