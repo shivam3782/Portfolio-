@@ -1,0 +1,8 @@
+node_modules
+dist
+artifacts
+test-results
+playwright-report
+package-lock.json
+../backend/node_modules
+../backend/package-lock.json

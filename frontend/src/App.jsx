@@ -1,59 +1,135 @@
-import { lazy, Suspense, useCallback, useEffect, useState } from 'react';
-import { createBrowserRouter, RouterProvider, Link, Route, Routes, useLocation } from 'react-router-dom';
-import { motion, MotionConfig } from 'motion/react';
-import Navbar from './components/Navbar';
-import Hero from './components/Hero';
-import Projects from './components/Projects';
-import Education from './components/Education';
-import Skills from './components/Skills';
-import Certifications from './components/Certifications';
-import Mentoring from './components/Mentoring';
-import ScrollProgress from './components/ScrollProgress';
-import Footer from './components/Footer';
-import About from './components/About';
-import Mascot from './components/Mascot';
-import EngineeringScene from './components/EngineeringScene';
-import useCompactLayout from './hooks/useCompactLayout';
-import useKonami from './hooks/useKonami';
-import useSmoothScroll from './hooks/useSmoothScroll';
-import useTheme from './hooks/useTheme';
-import useReducedMotion, { toggleMotion, useMotionPaused } from './hooks/useReducedMotion';
-import './App.css';
-const AdminPanel = lazy(() => import('./components/AdminPanel'));
-const CommandPalette = lazy(() => import('./components/CommandPalette'));
+import { lazy, Suspense, useEffect, useState } from "react";
+import {
+  createBrowserRouter,
+  createMemoryRouter,
+  RouterProvider,
+  Route,
+  Routes,
+  useLocation,
+} from "react-router-dom";
+import Navbar from "./components/Navbar";
+import Hero from "./components/Hero";
+import Projects from "./components/Projects";
+import Education from "./components/Education";
+import Skills from "./components/Skills";
+import Mentoring from "./components/Mentoring";
+import Footer from "./components/Footer";
+import About from "./components/About";
+import Contact from "./components/sections/Contact";
+import ContentProvider from "./components/ContentProvider";
+import ErrorBoundary from "./components/ErrorBoundary";
+import RouteEffects from "./components/RouteEffects";
+import Skeleton from "./components/ui/Skeleton";
+import NotFound from "./pages/NotFound";
+import useTheme from "./hooks/useTheme";
+import "./App.css";
+const AdminPanel = lazy(() => import("./components/AdminPanel"));
+const CommandPalette = lazy(() => import("./components/CommandPalette"));
+const ProjectDetail = lazy(() => import("./pages/ProjectDetail"));
 function Home() {
-  const compact = useCompactLayout();
-  return <main id="main-content" className="container"><Hero compact={compact} /><Projects />{compact && <div className="mobile-workbench"><EngineeringScene /></div>}<About /><Skills /><Education /><Mentoring /><Certifications /></main>;
+  return (
+    <main id="main-content">
+      <div className="container">
+        <Hero />
+        <About />
+        <Projects />
+        <Skills />
+        <Education />
+        <Mentoring />
+        <Contact />
+      </div>
+    </main>
+  );
 }
 function Shell() {
-  const [command, setCommand] = useState(false),
-    [menu, setMenu] = useState(false);
+  const [command, setCommand] = useState(false);
   const [theme, toggleTheme] = useTheme();
-  const reduced = useReducedMotion(), motionPaused = useMotionPaused();
-  const close = useCallback(() => setCommand(false), []),
-    activated = useKonami(),
-    location = useLocation();
-  const admin = location.pathname === '/admin' || location.pathname.startsWith('/admin/');
-  useSmoothScroll(command || menu);
+  const location = useLocation();
+  const admin = location.pathname.startsWith("/admin");
   useEffect(() => {
-    const handler = event => {
-      if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 'k') {
+    const handler = (event) => {
+      if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === "k") {
         event.preventDefault();
-        setCommand(value => !value);
+        setCommand((value) => !value);
       }
     };
-    window.addEventListener('keydown', handler);
-    return () => window.removeEventListener('keydown', handler);
+    window.addEventListener("keydown", handler);
+    return () => window.removeEventListener("keydown", handler);
   }, []);
-  return <MotionConfig reducedMotion={reduced ? "always" : "never"}><div className={`app-shell ${activated ? 'retro-flash' : ''}`}><Link className="skip-link" to={`${location.pathname}#main-content`}>Skip to content</Link>{!admin && <><ScrollProgress /><Navbar onCommand={() => setCommand(true)} theme={theme} onTheme={toggleTheme} onMenu={setMenu} /></>}<motion.div key={admin ? 'admin' : location.pathname} initial={{
-          opacity: 0
-        }} animate={{
-          opacity: 1
-        }} transition={{
-          duration: .16
-        }}><Suspense fallback={<main id="main-content" className="container service-state route-loading" role="status" aria-busy="true">Opening admin…</main>}><Routes location={location}><Route path="/" element={<Home />} /><Route path="/admin/*" element={<AdminPanel theme={theme} onTheme={toggleTheme} onCommand={() => setCommand(true)} />} /><Route path="*" element={<main id="main-content" className="container section"><h1>Page not found.</h1><Link to="/" className="button primary">Return home ↗</Link></main>} /></Routes></Suspense></motion.div>{!admin && <><Footer /><Mascot onCommand={() => setCommand(true)} /></>}{command && <Suspense fallback={<div className="cheat-toast" role="status">Opening commands...</div>}><CommandPalette open={command} onClose={close} onTheme={toggleTheme} onMotion={toggleMotion} motionPaused={motionPaused} /></Suspense>}{activated && <div className="cheat-toast" role="status">CHEAT CODE ACTIVATED</div>}</div></MotionConfig>;
+  return (
+    <div className="app-shell">
+      <RouteEffects />
+      <a className="skip-link" href="#main-content">
+        Skip to content
+      </a>
+      {!admin && (
+        <Navbar
+          onCommand={() => setCommand(true)}
+          theme={theme}
+          onTheme={toggleTheme}
+        />
+      )}
+      <ErrorBoundary>
+        <Suspense
+          fallback={
+            <main id="main-content" className="container route-loading">
+              <Skeleton />
+            </main>
+          }
+        >
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/projects/:slug" element={<ProjectDetail />} />
+            <Route
+              path="/admin/*"
+              element={
+                <AdminPanel
+                  theme={theme}
+                  onTheme={toggleTheme}
+                  onCommand={() => setCommand(true)}
+                />
+              }
+            />
+            <Route path="*" element={<NotFound />} />
+          </Routes>
+        </Suspense>
+      </ErrorBoundary>
+      {!admin && <Footer />}
+      {command && (
+        <Suspense
+          fallback={
+            <p className="toast" role="status">
+              Opening menu…
+            </p>
+          }
+        >
+          <CommandPalette
+            open
+            onClose={() => setCommand(false)}
+            onTheme={toggleTheme}
+          />
+        </Suspense>
+      )}
+    </div>
+  );
 }
-const router = createBrowserRouter([{ path: '*', element: <Shell /> }]);
-export default function App() {
-  return <RouterProvider router={router} />;
+const browserRouter =
+  typeof document !== "undefined"
+    ? createBrowserRouter([{ path: "*", element: <Shell /> }])
+    : null;
+export default function App({ url = "/", initialContent }) {
+  const [router] = useState(
+    () =>
+      browserRouter ||
+      createMemoryRouter([{ path: "*", element: <Shell /> }], {
+        initialEntries: [url],
+      }),
+  );
+  return (
+    <ErrorBoundary>
+      <ContentProvider initialContent={initialContent}>
+        <RouterProvider router={router} />
+      </ContentProvider>
+    </ErrorBoundary>
+  );
 }
